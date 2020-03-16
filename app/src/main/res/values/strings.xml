@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Hablave</string>
+    <string name="trip">Trip</string>
+    <string name="search">Search</string>
+    <string name="create">Create</string>
+    <string name="chats">Chats</string>
+    <string name="profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="preparado_para_viajar">¿Preparado para viajar?</string>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="H1">96sp</dimen>
+    <dimen name="H2">60sp</dimen>
+    <dimen name="H3">48sp</dimen>
+    <dimen name="H4">34sp</dimen>
+    <dimen name="H5">24sp</dimen>
+    <dimen name="H6">20sp</dimen>
+    <dimen name="Subtitle_1">16sp</dimen>
+    <dimen name="Subtitle_2">14sp</dimen>
+    <dimen name="Body_1">16sp</dimen>
+    <dimen name="Body_2">14sp</dimen>
+    <dimen name="Button">14sp</dimen>
+    <dimen name="Caption">12sp</dimen>
+    <dimen name="Overline">10sp</dimen>
+    <dimen name="cornerTextInputLayout">12dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
+    <dimen name="margin_32dp">32dp</dimen>
+</resources>
