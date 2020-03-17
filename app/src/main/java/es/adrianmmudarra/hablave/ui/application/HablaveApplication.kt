@@ -6,6 +6,11 @@ class HablaveApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
+        context = this
     }
 
+    companion object{
+        lateinit var context : HablaveApplication
+            private set
+    }
 }

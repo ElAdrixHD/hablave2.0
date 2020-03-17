@@ -12,4 +12,10 @@
     <string name="contrasenia">Contraseña</string>
     <string name="iniciar_sesion">Iniciar Sesión</string>
     <string name="registrarse">Registrarse</string>
+    <string name="usuario_incorrecto">Usuario Incorrecto</string>
+    <string name="mensaje_usuario_incorrecto">Los datos introducidos no son correctos o el usuario no existe.</string>
+    <string name="correo_vacio">El campo del correo electrónico está vacio</string>
+    <string name="correo_invalido">El correo elecrónico no es válido</string>
+    <string name="contrasenia_vacia">El campo de la contraseña está vacia</string>
+    <string name="contrasenia_no_segura">La contraseña no es lo suficientemente segura</string>
 </resources>
