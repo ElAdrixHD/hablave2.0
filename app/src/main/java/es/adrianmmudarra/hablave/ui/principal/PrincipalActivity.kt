@@ -3,18 +3,24 @@ package es.adrianmmudarra.hablave.ui.principal
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.internal.DescendantOffsetUtils
+import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity() {
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract {
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
 
     private var principalView: PrincipalView? = null
+
+    private var doubleBack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +34,48 @@ class PrincipalActivity : AppCompatActivity() {
         setSupportActionBar(my_toolbar)
 
         bottom_nav_menu.setOnNavigationItemSelectedListener {
-
+            when (it.itemId){
+                R.id.nav_trip -> showPrincipal()
+                R.id.nav_search -> showSearch()
+                R.id.nav_create -> showCreate()
+                R.id.nav_chat -> showChats()
+                R.id.nav_profile -> showProfile()
+            }
+            return@setOnNavigationItemSelectedListener true
         }
 
         initPrincipalFragment()
+    }
+
+    private fun showProfile() {
+        Snackbar.make(mainCoordinator, "Profile", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showChats() {
+        Snackbar.make(mainCoordinator, "Chats", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showCreate() {
+        Snackbar.make(mainCoordinator, "Create", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showSearch() {
+        Snackbar.make(mainCoordinator, "Search", Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun showPrincipal() {
+        principalView = supportFragmentManager.findFragmentByTag(PrincipalView.TAG) as PrincipalView?
+        if (principalView == null){
+            principalView = PrincipalView.newInstance(null)
+        }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, principalView!!, PrincipalView.TAG)
+            .addToBackStack(null)
+            .commit()
+
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
 
     private fun initPrincipalFragment() {
@@ -46,4 +90,25 @@ class PrincipalActivity : AppCompatActivity() {
             .commit()
     }
 
+    override fun onBackPressed() {
+        if (principalView?.isVisible!!){
+            if (doubleBack) {
+                super.onBackPressed()
+                return
+            }
+
+            this.doubleBack = true
+            Toast.makeText(this, getString(R.string.pulsar_de_nuevo_para_salir), Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed({ doubleBack = false }, 2000)
+        }else{
+            supportFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onResumePrincipalView() {
+        if(bottom_nav_menu.selectedItemId != R.id.nav_trip){
+            bottom_nav_menu.selectedItemId = R.id.nav_trip
+        }
+    }
 }
