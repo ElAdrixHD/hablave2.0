@@ -1,5 +1,6 @@
 package es.adrianmmudarra.hablave.ui.login
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import es.adrianmmudarra.hablave.ui.base.BaseView
 
 class LoginContract {
@@ -10,9 +11,14 @@ class LoginContract {
         fun onClearPassword()
         fun onSuccessLogin()
         fun onFailedLogin()
+        fun showLoading()
+        fun disableLoading()
+        fun onFailedLoginGoogle()
+        fun onNotVerifiedEmail()
     }
 
     interface Presenter{
         fun checkData(email: String, password: String)
+        fun signInWithGoogle(acc: GoogleSignInAccount)
     }
 }

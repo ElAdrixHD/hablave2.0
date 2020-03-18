@@ -1,32 +1,23 @@
 package es.adrianmmudarra.hablave.ui.login
 
-import android.R.attr
-import android.content.Intent
-import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import com.google.firebase.auth.FederatedAuthProvider
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.GoogleAuthProvider
 import es.adrianmmudarra.hablave.R
-import es.adrianmmudarra.hablave.ui.application.HablaveApplication
+import es.adrianmmudarra.hablave.data.repository.FirebaseRepository
 import es.adrianmmudarra.hablave.utils.isEmailValid
 
-//TODO CREAR REPOSITORY Y CAMBIAR TODA ESTA MIERDA AL REPOSITORY
-class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter {
-    private var auth: FirebaseAuth? = null
-    init {
-        auth = FirebaseAuth.getInstance()
-    }
+class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter, FirebaseRepository.LoginInteract {
 
     override fun checkData(email: String, password: String) {
         if(checkEmail(email) and checkPassword(password)){
-            auth?.signInWithEmailAndPassword(email,password)?.addOnCompleteListener{
-                if (!it.isSuccessful) {
-                    view.onFailedLogin()
-                } else {
-                    view.onSuccessLogin()
-                }
-            }
+            view.showLoading()
+            FirebaseRepository.getInstance().logInWithEmailAndPassword(email,password,this)
         }
+    }
+
+    override fun signInWithGoogle(acc: GoogleSignInAccount) {
+        view.showLoading()
+        FirebaseRepository.getInstance().logInWithGoogle(acc,this)
     }
 
     private fun checkPassword(password: String): Boolean {
@@ -52,5 +43,25 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
                 true
             }
         }
+    }
+
+    override fun onSuccessLogin() {
+        view.onSuccessLogin()
+        view.disableLoading()
+    }
+
+    override fun onFailedLogin() {
+        view.onFailedLogin()
+        view.disableLoading()
+    }
+
+    override fun notVerifiedEmail() {
+        view.onNotVerifiedEmail()
+        view.disableLoading()
+    }
+
+    override fun onFailedLoginGoogle() {
+        view.onFailedLoginGoogle()
+        view.disableLoading()
     }
 }

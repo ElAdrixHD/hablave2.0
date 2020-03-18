@@ -71,6 +71,16 @@
                 style="@style/ButtonNormal"
                 android:text="@string/iniciar_sesion" />
 
+            <ProgressBar
+                android:id="@+id/progressBarLogin"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primary_dark"
+                android:visibility="invisible" />
+
             <Button
                 android:id="@+id/btnLoginRegister"
                 android:layout_width="wrap_content"
@@ -80,8 +90,17 @@
                 android:textColor="@color/primary_text"
                 android:layout_weight="1"
                 android:text="@string/registrarse" />
+
         </LinearLayout>
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnLoginGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginVertical="@dimen/margin_8dp"/>
 
 
     </LinearLayout>
+    <!-- TODO Botón de olvidar contraseña -->
 </androidx.core.widget.NestedScrollView>

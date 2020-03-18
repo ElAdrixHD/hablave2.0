@@ -18,4 +18,8 @@
     <string name="correo_invalido">El correo elecrónico no es válido</string>
     <string name="contrasenia_vacia">El campo de la contraseña está vacia</string>
     <string name="contrasenia_no_segura">La contraseña no es lo suficientemente segura</string>
+    <string name="error_inicio_sesion_google">Error al iniciar sesión con google</string>
+    <string name="error_generico">Ha ocurrido un error</string>
+    <string name="email_no_verifiado">No verificado</string>
+    <string name="correo_electronico_necesita_verificarse">Para poder iniciar sesión, debes anter verificar el correo electronico en un mensaje que le hemos enviado a correo electrónico</string>
 </resources>
