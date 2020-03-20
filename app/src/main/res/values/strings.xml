@@ -22,4 +22,9 @@
     <string name="error_generico">Ha ocurrido un error</string>
     <string name="email_no_verifiado">No verificado</string>
     <string name="correo_electronico_necesita_verificarse">Para poder iniciar sesión, debes anter verificar el correo electronico en un mensaje que le hemos enviado a correo electrónico</string>
+    <string name="has_olvidado_la_contrasenia">¿Has olvidado la contraseña?</string>
+    <string name="introduce_correo_electronico">Introduce el correo electrónico</string>
+    <string name="correo_recuperacion_enviado">Se ha enviado un correo de recuperación</string>
+    <string name="introduce_el_correo_electronico_para_mandarle_un_correo_de_recuperacion">Introduce el correo electronico para mandarle un correo de recuperación.</string>
+    <string name="no_existe_ese_correo">No existe una cuenta de usuario asiciado a este correo</string>
 </resources>

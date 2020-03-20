@@ -1,12 +1,16 @@
 package es.adrianmmudarra.hablave.ui.login
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.view.marginStart
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -14,6 +18,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import es.adrianmmudarra.hablave.R
 import kotlinx.android.synthetic.main.fragment_login_view.*
 
@@ -68,6 +74,18 @@ class LoginView : Fragment(), LoginContract.View {
 
         btnLoginRegister.setOnClickListener {
             onLoginViewInteract?.onRegisterPressed()
+        }
+
+        tvLoginForgotPassword.setOnClickListener {
+            val customview = layoutInflater.inflate(R.layout.layout_forgot_password, null)
+
+            MaterialAlertDialogBuilder(context!!,R.style.AlertDialogTheme)
+                .setTitle(R.string.introduce_correo_electronico)
+                .setView(customview)
+                .setNegativeButton(android.R.string.no,null)
+                .setPositiveButton(android.R.string.ok){ _: DialogInterface, _: Int ->
+                    presenter?.forgotPassword(customview.findViewById<TextInputEditText>(R.id.tiledForgotPasswordEmail).text.toString())
+                }.show()
         }
     }
 
@@ -174,7 +192,15 @@ class LoginView : Fragment(), LoginContract.View {
         Toast.makeText(context!!, getString(error), Toast.LENGTH_SHORT).show()
     }
 
+    override fun onToastError(error: String) {
+        Toast.makeText(context!!, error, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onSnakbarError(error: Int) {
         Snackbar.make(view!!, getString(error), Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onSnakbarError(error: String) {
+        Snackbar.make(view!!, error, Snackbar.LENGTH_SHORT).show()
     }
 }

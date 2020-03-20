@@ -12,6 +12,8 @@ class FirebaseRepository {
         fun onFailedLogin()
         fun notVerifiedEmail()
         fun onFailedLoginGoogle()
+        fun onSuccessSendNewPassword()
+        fun onFailedSendNewPassword()
     }
 
     companion object{
@@ -52,6 +54,16 @@ class FirebaseRepository {
                     loginInteract.onFailedLoginGoogle()
                 }
             }
+    }
+
+    fun forgotPassword(email: String, loginPresenter: LoginInteract) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener {
+            if (it.isSuccessful){
+                loginPresenter.onSuccessSendNewPassword()
+            }else{
+                loginPresenter.onFailedSendNewPassword()
+            }
+        }
     }
 
 }

@@ -20,5 +20,6 @@ class LoginContract {
     interface Presenter{
         fun checkData(email: String, password: String)
         fun signInWithGoogle(acc: GoogleSignInAccount)
+        fun forgotPassword(email: String)
     }
 }

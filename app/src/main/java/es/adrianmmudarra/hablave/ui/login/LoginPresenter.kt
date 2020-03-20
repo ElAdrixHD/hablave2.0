@@ -20,6 +20,28 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
         FirebaseRepository.getInstance().logInWithGoogle(acc,this)
     }
 
+    override fun forgotPassword(email: String) {
+       if(checkForgotEmail(email)){
+            view.showLoading()
+            FirebaseRepository.getInstance().forgotPassword(email, this)
+       }
+    }
+
+    private fun checkForgotEmail(email: String): Boolean {
+        return if (email.isEmpty()){
+            view.onToastError(R.string.correo_vacio)
+            false
+        }else{
+            if (!email.isEmailValid()){
+                view.onToastError(R.string.correo_invalido)
+                false
+            }else{
+                view.onClearEmail()
+                true
+            }
+        }
+    }
+
     private fun checkPassword(password: String): Boolean {
         return if (password.isEmpty()){
             view.onPasswordError(R.string.contrasenia_vacia)
@@ -62,6 +84,16 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
 
     override fun onFailedLoginGoogle() {
         view.onFailedLoginGoogle()
+        view.disableLoading()
+    }
+
+    override fun onSuccessSendNewPassword() {
+        view.onSnakbarError(R.string.correo_recuperacion_enviado)
+        view.disableLoading()
+    }
+
+    override fun onFailedSendNewPassword() {
+        view.onToastError(R.string.no_existe_ese_correo)
         view.disableLoading()
     }
 }
