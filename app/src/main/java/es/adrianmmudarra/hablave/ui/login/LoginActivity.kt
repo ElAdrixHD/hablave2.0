@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity(), LoginView.OnLoginViewInteract {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.layout_login_register)
+        setContentView(R.layout.layout_login)
         initialise()
     }
 

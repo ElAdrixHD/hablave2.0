@@ -27,4 +27,7 @@
     <string name="correo_recuperacion_enviado">Se ha enviado un correo de recuperación</string>
     <string name="introduce_el_correo_electronico_para_mandarle_un_correo_de_recuperacion">Introduce el correo electronico para mandarle un correo de recuperación.</string>
     <string name="no_existe_ese_correo">No existe una cuenta de usuario asiciado a este correo</string>
+    <string name="masculino">Masculino</string>
+    <string name="femenino">Femenino</string>
+    <string name="genero_binario">Binario</string>
 </resources>
