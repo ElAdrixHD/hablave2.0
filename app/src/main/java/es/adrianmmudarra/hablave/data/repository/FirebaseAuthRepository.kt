@@ -1,11 +1,10 @@
 package es.adrianmmudarra.hablave.data.repository
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
-import es.adrianmmudarra.hablave.ui.application.HablaveApplication
+import com.google.firebase.auth.*
+import es.adrianmmudarra.hablave.HablaveApplication
 
-class FirebaseRepository {
+class FirebaseAuthRepository {
 
     interface LoginInteract{
         fun onSuccessLogin()
@@ -14,16 +13,25 @@ class FirebaseRepository {
         fun onFailedLoginGoogle()
         fun onSuccessSendNewPassword()
         fun onFailedSendNewPassword()
+        fun onSuccessLoginGoogle(user: FirebaseUser)
+    }
+
+    interface RegisterInteract{
+        fun onSuccessRegister(user: FirebaseUser)
+        fun onFailedRegister()
+        fun weakPassword()
+        fun invalidEmail()
+        fun userExists()
     }
 
     companion object{
-        private var INSTANCE: FirebaseRepository? = null
+        private var INSTANCE: FirebaseAuthRepository? = null
 
-        fun getInstance(): FirebaseRepository{
+        fun getInstance(): FirebaseAuthRepository{
             if (INSTANCE == null){
-                INSTANCE = FirebaseRepository()
+                INSTANCE = FirebaseAuthRepository()
             }
-            return INSTANCE as FirebaseRepository
+            return INSTANCE as FirebaseAuthRepository
         }
     }
 
@@ -39,6 +47,7 @@ class FirebaseRepository {
                     loginInteract.notVerifiedEmail()
                  }else{
                      loginInteract.onSuccessLogin()
+                     HablaveApplication.userLogged = it.result?.user
                  }
              }
         }
@@ -49,7 +58,7 @@ class FirebaseRepository {
         auth.signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    loginInteract.onSuccessLogin()
+                    loginInteract.onSuccessLoginGoogle(task.result?.user!!)
                 } else {
                     loginInteract.onFailedLoginGoogle()
                 }
@@ -66,4 +75,26 @@ class FirebaseRepository {
         }
     }
 
+    fun registerWithEmail(email: String, pass: String, registerInteract: RegisterInteract){
+        auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener {
+            if (it.isSuccessful){
+                registerInteract.onSuccessRegister(auth.currentUser!!)
+                auth.currentUser?.sendEmailVerification()
+            }else{
+                try {
+                    throw it.exception!!
+                } catch (e: FirebaseAuthWeakPasswordException) {
+                    registerInteract.weakPassword()
+                } catch (e: FirebaseAuthInvalidCredentialsException) {
+                    registerInteract.invalidEmail()
+                } catch (e: FirebaseAuthUserCollisionException) {
+                    registerInteract.userExists()
+                }
+            }
+        }
+    }
+
+    fun signOut(){
+        this.auth.signOut()
+    }
 }

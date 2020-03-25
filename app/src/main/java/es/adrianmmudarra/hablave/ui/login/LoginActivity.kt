@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
+import es.adrianmmudarra.hablave.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity(), LoginView.OnLoginViewInteract {
 
@@ -43,6 +45,7 @@ class LoginActivity : AppCompatActivity(), LoginView.OnLoginViewInteract {
         finish()
     }
 
-    override fun onRegisterPressed() {
+    override fun onRegister(user: User?) {
+        startActivity(Intent(this, RegisterActivity::class.java).apply { putExtra(User.TAG, user) })
     }
 }

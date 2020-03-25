@@ -30,4 +30,19 @@
     <string name="masculino">Masculino</string>
     <string name="femenino">Femenino</string>
     <string name="genero_binario">Binario</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="comprueba_si_estos_datos_son_correctos">Comprueba si estos datos son correctos</string>
+    <string name="nombre_completo">Nombre completo</string>
+    <string name="fecha_nacimiento">Fecha nacimiento</string>
+    <string name="genero">Género</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="error_al_registrarse">Error al registrar</string>
+    <string name="fallo_general">Fallo general</string>
+    <string name="campo_nombre_vacio">El campo del nombre no puede estar vacio</string>
+    <string name="campo_fecha_vacio">El campo fecha no puede estar vacio</string>
+    <string name="campo_gender_vacio">El campo del genero no puede estar vacio</string>
+    <string name="campo_pass_vacio">El campo de la contraseña no puede estar vacio</string>
+    <string name="correo_electronico_usado">Ya existe una cuenta con este correo</string>
 </resources>

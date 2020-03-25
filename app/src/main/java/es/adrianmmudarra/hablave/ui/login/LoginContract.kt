@@ -1,6 +1,7 @@
 package es.adrianmmudarra.hablave.ui.login
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.ui.base.BaseView
 
 class LoginContract {
@@ -15,6 +16,7 @@ class LoginContract {
         fun disableLoading()
         fun onFailedLoginGoogle()
         fun onNotVerifiedEmail()
+        fun needRegisterGoogle(user: User)
     }
 
     interface Presenter{

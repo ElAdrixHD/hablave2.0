@@ -1,29 +1,31 @@
 package es.adrianmmudarra.hablave.ui.login
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.FirebaseUser
 import es.adrianmmudarra.hablave.R
-import es.adrianmmudarra.hablave.data.repository.FirebaseRepository
+import es.adrianmmudarra.hablave.data.model.User
+import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
+import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseRepository
 import es.adrianmmudarra.hablave.utils.isEmailValid
 
-class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter, FirebaseRepository.LoginInteract {
+class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter, FirebaseAuthRepository.LoginInteract, FirebaseDatabaseRepository.LoginInteract {
 
     override fun checkData(email: String, password: String) {
         if(checkEmail(email) and checkPassword(password)){
             view.showLoading()
-            FirebaseRepository.getInstance().logInWithEmailAndPassword(email,password,this)
+            FirebaseAuthRepository.getInstance().logInWithEmailAndPassword(email,password,this)
         }
     }
 
     override fun signInWithGoogle(acc: GoogleSignInAccount) {
         view.showLoading()
-        FirebaseRepository.getInstance().logInWithGoogle(acc,this)
+        FirebaseAuthRepository.getInstance().logInWithGoogle(acc,this)
     }
 
     override fun forgotPassword(email: String) {
        if(checkForgotEmail(email)){
             view.showLoading()
-            FirebaseRepository.getInstance().forgotPassword(email, this)
+            FirebaseAuthRepository.getInstance().forgotPassword(email, this)
        }
     }
 
@@ -72,6 +74,11 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
         view.disableLoading()
     }
 
+    override fun needRegister(user: User) {
+        view.disableLoading()
+        view.needRegisterGoogle(user)
+    }
+
     override fun onFailedLogin() {
         view.onFailedLogin()
         view.disableLoading()
@@ -95,5 +102,9 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
     override fun onFailedSendNewPassword() {
         view.onToastError(R.string.no_existe_ese_correo)
         view.disableLoading()
+    }
+
+    override fun onSuccessLoginGoogle(user: FirebaseUser) {
+        FirebaseDatabaseRepository.getInstance().checkUser(user,this)
     }
 }

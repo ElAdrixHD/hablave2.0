@@ -35,6 +35,7 @@
         <item name="shapeAppearanceOverlay">@style/MyShapeAppearance</item>
         <item name="strokeWidth">2dp</item>
         <item name="strokeColor">@color/primary</item>
+        <item name="android:textColor">@color/primary_text</item>
     </style>
     <style name="MyShapeAppearance" parent="">
         <item name="cornerFamilyTopLeft">rounded</item>

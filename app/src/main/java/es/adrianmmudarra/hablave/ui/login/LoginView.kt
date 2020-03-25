@@ -20,7 +20,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.data.model.User
 import kotlinx.android.synthetic.main.fragment_login_view.*
 
 
@@ -41,7 +43,8 @@ class LoginView : Fragment(), LoginContract.View {
     override fun onStart() {
         super.onStart()
         val account = GoogleSignIn.getLastSignedInAccount(context)
-        if (account != null){
+        val acc = HablaveApplication.userLogged
+        if (account != null || acc != null){
             onSuccessLogin()
         }
     }
@@ -73,7 +76,7 @@ class LoginView : Fragment(), LoginContract.View {
         }
 
         btnLoginRegister.setOnClickListener {
-            onLoginViewInteract?.onRegisterPressed()
+            onLoginViewInteract?.onRegister(null)
         }
 
         tvLoginForgotPassword.setOnClickListener {
@@ -126,7 +129,7 @@ class LoginView : Fragment(), LoginContract.View {
 
     interface OnLoginViewInteract{
         fun onSuccessLogin()
-        fun onRegisterPressed()
+        fun onRegister(user: User?)
     }
 
     override fun onEmailError(error: Int) {
@@ -182,6 +185,10 @@ class LoginView : Fragment(), LoginContract.View {
             .setPositiveButton(android.R.string.ok, null)
             .setIcon(R.drawable.ic_warning_24dp)
             .show()
+    }
+
+    override fun needRegisterGoogle(user: User) {
+        onLoginViewInteract?.onRegister(user)
     }
 
     override fun setPresenter(presenter: LoginContract.Presenter) {
