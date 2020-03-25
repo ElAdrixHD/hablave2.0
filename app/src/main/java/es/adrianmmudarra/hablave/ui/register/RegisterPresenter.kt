@@ -7,6 +7,7 @@ import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
 import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseRepository
 import es.adrianmmudarra.hablave.utils.isEmailValid
 
+//TODO AÑADIR MAS CASOS DE USO
 class RegisterPresenter(private val view: RegisterContract.View): RegisterContract.Presenter, FirebaseAuthRepository.RegisterInteract, FirebaseDatabaseRepository.RegisterInteract {
     override fun checkData(
         name: String,
@@ -116,10 +117,5 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
     override fun onSuccessRegister() {
         FirebaseAuthRepository.getInstance().signOut()
         view.onSuccessDatabaseRegister()
-    }
-
-    override fun existEmail() {
-        view.disableLoading()
-        view.onEmailError(R.string.correo_electronico_usado)
     }
 }

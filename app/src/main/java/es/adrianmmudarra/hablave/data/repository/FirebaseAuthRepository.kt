@@ -93,6 +93,9 @@ class FirebaseAuthRepository {
             }
         }
     }
+    fun getCurrentUser(): FirebaseUser?{
+        return this.auth.currentUser
+    }
 
     fun signOut(){
         this.auth.signOut()

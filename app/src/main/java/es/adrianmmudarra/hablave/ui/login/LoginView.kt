@@ -42,10 +42,8 @@ class LoginView : Fragment(), LoginContract.View {
 
     override fun onStart() {
         super.onStart()
-        val account = GoogleSignIn.getLastSignedInAccount(context)
-        val acc = HablaveApplication.userLogged
-        if (account != null || acc != null){
-            onSuccessLogin()
+        if (presenter?.checkUserLogged()!!){
+            onLoginViewInteract?.onSuccessLogin()
         }
     }
 

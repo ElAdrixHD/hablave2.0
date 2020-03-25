@@ -73,7 +73,7 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
                     0
                 ) { dialog, item ->
 
-                    (it as TextInputEditText).setText(adapter.getItem(item).toString())
+                    (it as TextInputEditText).setText(getString(adapter.getItem(item)?.text!!))
                     dialog.dismiss() }
 
             alertDialog.create().show()
@@ -196,8 +196,8 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            tiledRegisterBirthday.setText("${String.format("%02d",dayOfMonth)}-${String.format("%02d",monthOfYear+1)}-$year")
+        val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, myYear, monthOfYear, dayOfMonth ->
+            tiledRegisterBirthday.setText("${String.format("%02d",dayOfMonth)}-${String.format("%02d",monthOfYear+1)}-$myYear")
 
         }, year, month, day)
         dpd.datePicker.maxDate = c.timeInMillis

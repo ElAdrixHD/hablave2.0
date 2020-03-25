@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
+import kotlinx.android.synthetic.main.fragment_principal_view.*
 
 class PrincipalView : Fragment() {
 
@@ -39,6 +41,10 @@ class PrincipalView : Fragment() {
     ): View? {
 
         return inflater.inflate(R.layout.fragment_principal_view, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
     interface OnPrincipalViewInteract{

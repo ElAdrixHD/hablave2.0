@@ -29,6 +29,10 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
        }
     }
 
+    override fun checkUserLogged(): Boolean {
+        return FirebaseAuthRepository.getInstance().getCurrentUser() != null
+    }
+
     private fun checkForgotEmail(email: String): Boolean {
         return if (email.isEmpty()){
             view.onToastError(R.string.correo_vacio)
