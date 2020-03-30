@@ -1,5 +1,6 @@
 package es.adrianmmudarra.hablave.data.repository
 
+import android.util.Log
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.*
 import es.adrianmmudarra.hablave.HablaveApplication
@@ -22,6 +23,7 @@ class FirebaseAuthRepository {
         fun weakPassword()
         fun invalidEmail()
         fun userExists()
+        fun onSuccessDelete()
     }
 
     companion object{
@@ -93,7 +95,21 @@ class FirebaseAuthRepository {
             }
         }
     }
+
+    fun deleteUser(registerInteract: RegisterInteract){
+        this.auth.currentUser?.delete()?.addOnCompleteListener {
+            if (it.isSuccessful){
+                this.auth.signOut()
+                Log.d("Adri", "BORRADO USUARIO")
+                registerInteract.onSuccessDelete()
+            }else{
+                Log.d("Adri", "NO BORRADO USUARIO")
+            }
+        }
+    }
+
     fun getCurrentUser(): FirebaseUser?{
+        Log.d("Adri", this.auth.currentUser?.uid ?: "null")
         return this.auth.currentUser
     }
 

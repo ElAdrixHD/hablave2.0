@@ -13,6 +13,7 @@ class FirebaseDatabaseRepository {
 
     interface RegisterInteract {
         fun onSuccessRegister()
+        fun onSuccessRegisterWithGoogle()
     }
 
     companion object {
@@ -28,10 +29,14 @@ class FirebaseDatabaseRepository {
 
     private val database = FirebaseFirestore.getInstance()
 
-    fun addUser(user: User, registerInteract: RegisterInteract) {
+    fun addUser(user: User, registerInteract: RegisterInteract, withGoogle: Boolean) {
         database.collection("User").document(user.uid).set(user).addOnCompleteListener {
             if (it.isSuccessful) {
-                registerInteract.onSuccessRegister()
+                if (withGoogle){
+                    registerInteract.onSuccessRegisterWithGoogle()
+                }else{
+                    registerInteract.onSuccessRegister()
+                }
             }
         }
     }

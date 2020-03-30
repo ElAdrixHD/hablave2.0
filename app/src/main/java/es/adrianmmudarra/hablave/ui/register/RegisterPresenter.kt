@@ -1,6 +1,7 @@
 package es.adrianmmudarra.hablave.ui.register
 
 import com.google.firebase.auth.FirebaseUser
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
@@ -14,17 +15,11 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         date: String,
         gender: String,
         email: String,
-        pass: String,
-        user: User?
+        pass: String
     ) {
         if (checkName(name) and checkDate(date) and checkGender(gender) and checkEmail(email) and checkPassword(pass)){
             view.showLoading()
-            if (user != null){
-                user.apply { birthday = date; this.nameAndSurname = name; this.gender = gender; }
-                FirebaseDatabaseRepository.getInstance().addUser(user, this)
-            }else{
-                FirebaseAuthRepository.getInstance().registerWithEmail(email,pass,this)
-            }
+            FirebaseAuthRepository.getInstance().registerWithEmail(email,pass,this)
         }
     }
 
@@ -86,7 +81,24 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         date: String,
         gender: String
     ) {
-        FirebaseDatabaseRepository.getInstance().addUser(User(uid,email).apply { this.nameAndSurname = name; this.birthday = date; this.gender = gender },this)
+        FirebaseDatabaseRepository.getInstance().addUser(User(uid,email).apply { this.nameAndSurname = name; this.birthday = date; this.gender = gender },this,false)
+    }
+
+    override fun deleteUser() {
+        FirebaseAuthRepository.getInstance().deleteUser(this)
+    }
+
+    override fun checkDataGoogle(
+        name: String,
+        date: String,
+        gender: String,
+        email: String,
+        user: User?
+    ) {
+        if (checkName(name) and checkDate(date) and checkGender(gender) and checkEmail(email)){
+            user?.apply { birthday = date; this.nameAndSurname = name; this.gender = gender; }
+            FirebaseDatabaseRepository.getInstance().addUser(user!!, this, true)
+        }
     }
 
     override fun onSuccessRegister(user: FirebaseUser) {
@@ -114,8 +126,19 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         view.onFailedRegister(R.string.correo_electronico_usado)
     }
 
+    override fun onSuccessDelete() {
+        view.disableLoading()
+        view.onSuccessCancel()
+    }
+
     override fun onSuccessRegister() {
+        view.disableLoading()
         FirebaseAuthRepository.getInstance().signOut()
+        view.onSuccessDatabaseRegister()
+    }
+
+    override fun onSuccessRegisterWithGoogle() {
+        view.disableLoading()
         view.onSuccessDatabaseRegister()
     }
 }

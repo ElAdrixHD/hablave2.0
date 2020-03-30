@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Hablave</string>
-    <string name="trip">Trip</string>
-    <string name="search">Search</string>
-    <string name="create">Create</string>
-    <string name="chats">Chats</string>
-    <string name="profile">Profile</string>
+    <string name="trip">Viajes</string>
+    <string name="search">Buscar</string>
+    <string name="create">Crear</string>
+    <string name="chats">Mensajes</string>
+    <string name="profile">Perfil</string>
 
     <string name="preparado_para_viajar">¿Preparado para viajar?</string>
     <string name="pulsar_de_nuevo_para_salir">Pulsa el botón atras de nuevo para salir.</string>
@@ -45,4 +45,5 @@
     <string name="campo_gender_vacio">El campo del genero no puede estar vacio</string>
     <string name="campo_pass_vacio">El campo de la contraseña no puede estar vacio</string>
     <string name="correo_electronico_usado">Ya existe una cuenta con este correo</string>
+    <string name="trips_history">Historial de viajes</string>
 </resources>

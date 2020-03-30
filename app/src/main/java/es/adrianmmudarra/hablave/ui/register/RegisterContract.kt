@@ -22,10 +22,13 @@ class RegisterContract {
         fun onFailedRegister(error: Int)
         fun showLoading()
         fun disableLoading()
+        fun onSuccessCancel()
     }
 
     interface Presenter{
-        fun checkData(name:String, date: String, gender: String, email: String, pass: String, user: User? = null)
+        fun checkData(name:String, date: String, gender: String, email: String, pass: String)
         fun registerDatabase(uid: String, email: String, name: String, date: String, gender: String)
+        fun deleteUser()
+        fun checkDataGoogle(name:String, date: String, gender: String, email: String, user: User? = null)
     }
 }

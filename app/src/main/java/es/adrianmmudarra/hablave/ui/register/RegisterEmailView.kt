@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Gender
 import es.adrianmmudarra.hablave.data.model.User
-import kotlinx.android.synthetic.main.fragment_register_email_view.*
+import kotlinx.android.synthetic.main.fragment_register_view.*
 import java.util.*
 
 class RegisterEmailView : Fragment(), RegisterContract.View {
@@ -48,17 +48,28 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_email_view, container, false)
+        return inflater.inflate(R.layout.fragment_register_view, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var user: User? = null
         if (arguments != null){
+            tvRegister.visibility = View.VISIBLE
+            tilRegisterPassword.visibility = View.GONE
             user = arguments?.getParcelable<User>(User.TAG) as User
             tiledRegisterName.setText(user.nameAndSurname)
             tiledRegisterEmail.setText(user.email)
             tiledRegisterEmail.isEnabled = false
+
+            btnRegisterCancel.setOnClickListener {
+                presenter?.deleteUser()
+            }
+
+        }else{
+            btnRegisterCancel.setOnClickListener {
+                onRegisterEmailViewInteract?.onCancel()
+            }
         }
         tiledRegisterBirthday.setOnClickListener{
             clickDataPicker()
@@ -79,12 +90,9 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
             alertDialog.create().show()
         }
 
-        btnRegisterCancel.setOnClickListener {
-            onRegisterEmailViewInteract?.onCancel()
-        }
         btnRegisterConfirm.setOnClickListener {
             if (arguments != null){
-                presenter?.checkData(tiledRegisterName.text.toString(),tiledRegisterBirthday.text.toString(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString(), tiledRegisterPassword.text.toString(),user)
+                presenter?.checkDataGoogle(tiledRegisterName.text.toString(),tiledRegisterBirthday.text.toString(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString(),user)
             }else{
                 presenter?.checkData(tiledRegisterName.text.toString(),tiledRegisterBirthday.text.toString(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString(), tiledRegisterPassword.text.toString())
             }
@@ -106,43 +114,43 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
     }
 
     override fun onNameError(error: Int) {
-        tiledRegisterName.error = getString(error)
+        tilRegisterName.error = getString(error)
     }
 
     override fun onClearName() {
-        tiledRegisterName.error = null
+        tilRegisterName.error = null
     }
 
     override fun onDateError(error: Int) {
-        tiledRegisterBirthday.error = getString(error)
+        tilRegisterBirthday.error = getString(error)
     }
 
     override fun onClearDate() {
-        tiledRegisterBirthday.error = null
+        tilRegisterBirthday.error = null
     }
 
     override fun onEmailError(error: Int) {
-        tiledRegisterEmail.error = getString(error)
+        tilRegisterEmail.error = getString(error)
     }
 
     override fun onClearEmail() {
-        tiledRegisterEmail.error = null
+        tilRegisterEmail.error = null
     }
 
     override fun onPasswordError(error: Int) {
-        tiledRegisterPassword.error = getString(error)
+        tilRegisterPassword.error = getString(error)
     }
 
     override fun onClearPassword() {
-        tiledRegisterPassword.error = null
+        tilRegisterPassword.error = null
     }
 
     override fun onGenderError(error: Int) {
-        tiledRegisterGender.error = getString(error)
+        tilRegisterGender.error = getString(error)
     }
 
     override fun onClearGender() {
-        tiledRegisterGender.error = null
+        tilRegisterGender.error = null
     }
 
     override fun onSuccessAuthRegister(user: FirebaseUser) {
@@ -168,6 +176,10 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
 
     override fun disableLoading() {
         progressBarRegister.visibility = View.INVISIBLE
+    }
+
+    override fun onSuccessCancel() {
+        onRegisterEmailViewInteract?.onCancel()
     }
 
     override fun setPresenter(presenter: RegisterContract.Presenter) {
