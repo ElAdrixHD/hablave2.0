@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.internal.DescendantOffsetUtils
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.ui.profile.ProfileView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
@@ -19,6 +20,7 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         private set
 
     private var principalView: PrincipalView? = null
+    private var profileView: ProfileView? = null
 
     private var doubleBack = false
 
@@ -48,7 +50,15 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     }
 
     private fun showProfile() {
-        Snackbar.make(mainCoordinator, "Profile", Snackbar.LENGTH_SHORT).show()
+        profileView = supportFragmentManager.findFragmentByTag(ProfileView.TAG) as ProfileView?
+        if (profileView == null){
+            profileView = ProfileView.newInstance(null)
+        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, profileView!!, ProfileView.TAG)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun showChats() {

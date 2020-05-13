@@ -15,7 +15,7 @@
             android:id="@+id/ivLoginLogotipo"
             android:layout_width="@dimen/escala_logotipo"
             android:layout_height="@dimen/escala_logotipo"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_launcher_hablave_foreground"
             android:layout_gravity="center_horizontal"
             android:layout_marginVertical="@dimen/margin_32dp"
             android:contentDescription="TODO" />

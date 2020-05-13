@@ -29,7 +29,11 @@ class ProfileView : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profile_view_pager.adapter = ProfileViewAdapter(this)
-        TabLayoutMediator(profile_tab_layout,profile_view_pager){ _, _ -> }.attach()
+        TabLayoutMediator(profile_tab_layout,profile_view_pager){ tab, position ->
+            when (position) {
+                0 -> { tab.text = getString(R.string.profile)}
+                1 -> { tab.text = getString(R.string.trips_history)}
+        }  }.attach()
     }
 
     companion object {

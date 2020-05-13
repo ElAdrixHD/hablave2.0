@@ -37,6 +37,13 @@
         <item name="strokeColor">@color/primary</item>
         <item name="android:textColor">@color/primary_text</item>
     </style>
+
+    <style name="ButtonOutlinedDanger" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="shapeAppearanceOverlay">@style/MyShapeAppearance</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/error</item>
+        <item name="android:textColor">@color/error</item>
+    </style>
     <style name="MyShapeAppearance" parent="">
         <item name="cornerFamilyTopLeft">rounded</item>
         <item name="cornerFamilyBottomLeft">rounded</item>

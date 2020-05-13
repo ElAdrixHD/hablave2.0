@@ -182,6 +182,10 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
         onRegisterEmailViewInteract?.onCancel()
     }
 
+    override fun onDateUnderAge(dateUnderage: Int) {
+        tiledRegisterBirthday.error = getString(dateUnderage)
+    }
+
     override fun setPresenter(presenter: RegisterContract.Presenter) {
         this.presenter = presenter
     }

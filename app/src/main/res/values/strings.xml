@@ -46,4 +46,7 @@
     <string name="campo_pass_vacio">El campo de la contraseña no puede estar vacio</string>
     <string name="correo_electronico_usado">Ya existe una cuenta con este correo</string>
     <string name="trips_history">Historial de viajes</string>
+    <string name="date_underAge">No se permite menores de 16 años</string>
+    <string name="guardar">Guardar</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
 </resources>

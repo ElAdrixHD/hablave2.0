@@ -6,6 +6,7 @@ import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
 import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseRepository
+import es.adrianmmudarra.hablave.utils.getAge
 import es.adrianmmudarra.hablave.utils.isEmailValid
 
 //TODO AÑADIR MAS CASOS DE USO
@@ -60,6 +61,9 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         if (date.isEmpty()){
             view.onDateError(R.string.campo_fecha_vacio)
             return false
+        }
+        if(date.getAge()!! < 16){
+            view.onDateUnderAge(R.string.date_underAge)
         }
         view.onClearDate()
         return true

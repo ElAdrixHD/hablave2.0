@@ -23,6 +23,7 @@ class RegisterContract {
         fun showLoading()
         fun disableLoading()
         fun onSuccessCancel()
+        fun onDateUnderAge(dateUnderage: Int)
     }
 
     interface Presenter{
