@@ -7,7 +7,7 @@ private const val EMAIL_REGEX = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
 
 private const val PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,16}"
 
-var sdf: SimpleDateFormat = SimpleDateFormat("dd-MM-yyyy",Locale.ITALY)
+var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
 fun String.isEmailValid(): Boolean {
     return EMAIL_REGEX.toRegex().matches(this)

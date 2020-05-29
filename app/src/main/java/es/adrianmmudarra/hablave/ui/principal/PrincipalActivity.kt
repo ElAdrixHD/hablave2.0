@@ -1,5 +1,6 @@
 package es.adrianmmudarra.hablave.ui.principal
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,11 +11,14 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.internal.DescendantOffsetUtils
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.ui.login.LoginActivity
+import es.adrianmmudarra.hablave.ui.profile.ProfileDataContract
+import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
 import es.adrianmmudarra.hablave.ui.profile.ProfileView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract {
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -120,5 +124,10 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         if(bottom_nav_menu.selectedItemId != R.id.nav_trip){
             bottom_nav_menu.selectedItemId = R.id.nav_trip
         }
+    }
+
+    override fun onLogOut() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }

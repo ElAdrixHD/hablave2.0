@@ -213,7 +213,7 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
         val day = c.get(Calendar.DAY_OF_MONTH)
 
         val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, myYear, monthOfYear, dayOfMonth ->
-            tiledRegisterBirthday.setText("${String.format("%02d",dayOfMonth)}-${String.format("%02d",monthOfYear+1)}-$myYear")
+            tiledRegisterBirthday.setText("$myYear-${String.format("%02d",monthOfYear+1)}-${String.format("%02d",dayOfMonth)}")
 
         }, year, month, day)
         dpd.datePicker.maxDate = c.timeInMillis

@@ -16,6 +16,10 @@ class FirebaseDatabaseRepository {
         fun onSuccessRegisterWithGoogle()
     }
 
+    interface ProfileDataInteract{
+        fun onSuccessGetDatabaseData(gender: String, birthday: String)
+    }
+
     companion object {
         private var INSTANCE: FirebaseDatabaseRepository? = null
 
@@ -53,4 +57,15 @@ class FirebaseDatabaseRepository {
                 }
             }
         }
+
+    fun getDataUser(
+        uid: String,
+        profileDataPresenter: ProfileDataInteract
+    ) {
+        database.collection("User").document(uid).get().addOnSuccessListener {
+            if (it.exists()){
+                profileDataPresenter.onSuccessGetDatabaseData(it.get("gender").toString(),it.get("birthday").toString())
+            }
+        }
+    }
 }

@@ -79,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_black"
                     android:focusable="false"
                     android:hint="@string/genero"
                     android:inputType="none" />

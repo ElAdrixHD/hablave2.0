@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "390716387074",
+    "firebase_url": "https://hablaveproject.firebaseio.com",
+    "project_id": "hablaveproject",
+    "storage_bucket": "hablaveproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390716387074:android:2a49d122fe90ffd394dc1b",
+        "android_client_info": {
+          "package_name": "es.adrianmmudarra.hablave"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "390716387074-2o7ro4bcos0qquicke5b9epppo5qkieq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.adrianmmudarra.hablave",
+            "certificate_hash": "4bba2227715edf7bd0b9873ce430c8547734c67a"
+          }
+        },
+        {
+          "client_id": "390716387074-p7e0adetuq079a839nj8ig0tedugvfr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbQlfH6vQpOEjP6wFBfplldiEQSzH3sxE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "390716387074-p7e0adetuq079a839nj8ig0tedugvfr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

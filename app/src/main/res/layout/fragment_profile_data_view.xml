@@ -20,8 +20,7 @@
             android:id="@+id/tiledProfileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nombre_completo"
-            android:enabled="false"/>
+            android:hint="@string/nombre_completo" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

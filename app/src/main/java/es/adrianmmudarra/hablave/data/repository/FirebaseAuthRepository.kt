@@ -100,16 +100,12 @@ class FirebaseAuthRepository {
         this.auth.currentUser?.delete()?.addOnCompleteListener {
             if (it.isSuccessful){
                 this.auth.signOut()
-                Log.d("Adri", "BORRADO USUARIO")
                 registerInteract.onSuccessDelete()
-            }else{
-                Log.d("Adri", "NO BORRADO USUARIO")
             }
         }
     }
 
     fun getCurrentUser(): FirebaseUser?{
-        Log.d("Adri", this.auth.currentUser?.uid ?: "null")
         return this.auth.currentUser
     }
 
