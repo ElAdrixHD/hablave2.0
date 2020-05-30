@@ -20,6 +20,7 @@ import es.adrianmmudarra.hablave.data.model.Gender
 import es.adrianmmudarra.hablave.data.model.User
 import kotlinx.android.synthetic.main.fragment_register_view.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RegisterEmailView : Fragment(), RegisterContract.View {
 
@@ -76,7 +77,11 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
         }
 
         tiledRegisterGender.setOnClickListener{
-            val adapter: ArrayAdapter<Gender> = ArrayAdapter(context!!, android.R.layout.simple_expandable_list_item_1, Gender.values())
+            val array = ArrayList<String>()
+            for (item: Gender in Gender.values()){
+                array.add(getString(item.text))
+            }
+            val adapter: ArrayAdapter<String> = ArrayAdapter(context!!, android.R.layout.simple_expandable_list_item_1, array)
 
             val alertDialog: AlertDialog.Builder = AlertDialog.Builder(context!!)
                 .setSingleChoiceItems(
@@ -84,7 +89,7 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
                     0
                 ) { dialog, item ->
 
-                    (it as TextInputEditText).setText(getString(adapter.getItem(item)?.text!!))
+                    (it as TextInputEditText).setText(adapter.getItem(item))
                     dialog.dismiss() }
 
             alertDialog.create().show()
