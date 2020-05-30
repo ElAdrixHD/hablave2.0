@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.create.CreateTripView">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCreateTripStationOrigin"
+        style="@style/TextInputLayoutCustom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiledCreateTripStationOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/estacion_origen" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilCreateTripStationDest"
+        style="@style/TextInputLayoutCustom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiledCreateTripStationDest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/estacion_destino" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCreateTripDate"
+            style="@style/TextInputLayoutCustom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:errorEnabled="true"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiledCreateTripDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fecha_viaje" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilCreateTripPrice"
+            style="@style/TextInputLayoutCustom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:errorEnabled="true"
+            android:layout_weight="1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiledCreateTripPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/precio" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/swCreateTripTicket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_16dp"
+        android:layout_marginTop="@dimen/margin_16dp"
+        android:checked="false"
+        android:text="@string/usted_ya_tiene_el_billete_comprado"
+        android:thumbTint="@color/primary_dark"
+        android:trackTint="#000000" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/btnCreateTripCreate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_weight="1"
+            android:text="@string/crear_viaje" />
+
+        <ProgressBar
+            android:id="@+id/progressBarCreateTrip"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/btnCreateTripCancel"
+            style="@style/ButtonOutlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:layout_weight="1"
+            android:text="@string/cancelar" />
+    </LinearLayout>
+</LinearLayout>

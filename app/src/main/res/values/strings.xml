@@ -50,4 +50,10 @@
     <string name="guardar">Guardar</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
     <string name="profile_updated">Se ha actualizado el perfil</string>
+    <string name="estacion_origen">Estación origen</string>
+    <string name="estacion_destino">Estacion destino</string>
+    <string name="fecha_viaje">Fecha del viaje</string>
+    <string name="precio">Precio total</string>
+    <string name="usted_ya_tiene_el_billete_comprado">¿Usted ya tiene el billete comprado?</string>
+    <string name="crear_viaje">Crear viaje</string>
 </resources>

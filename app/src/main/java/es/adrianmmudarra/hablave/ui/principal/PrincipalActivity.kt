@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.internal.DescendantOffsetUtils
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataContract
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
@@ -25,6 +26,7 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     private var principalView: PrincipalView? = null
     private var profileView: ProfileView? = null
+    private var createTripView: CreateTripView? = null
 
     private var doubleBack = false
 
@@ -70,7 +72,15 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     }
 
     private fun showCreate() {
-        Snackbar.make(mainCoordinator, "Create", Snackbar.LENGTH_SHORT).show()
+        createTripView = supportFragmentManager.findFragmentByTag(CreateTripView.TAG) as CreateTripView?
+        if (createTripView == null){
+            createTripView = CreateTripView.newInstance(null)
+        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, createTripView!!, CreateTripView.TAG)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun showSearch() {

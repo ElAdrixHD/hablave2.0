@@ -85,7 +85,7 @@
 
         <Button
             android:id="@+id/btnProfileSaveData"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:layout_marginStart="@dimen/margin_16dp"
@@ -97,9 +97,9 @@
         <ProgressBar
             android:id="@+id/progressBarProfile"
             style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0"
+            android:layout_weight="0.5"
             android:indeterminate="true"
             android:indeterminateTint="@color/primary_dark"
             tools:visibility="invisible" />
@@ -107,12 +107,12 @@
         <Button
             android:id="@+id/btnLogOut"
             style="@style/ButtonOutlinedDanger"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/margin_16dp"
             android:layout_marginStart="@dimen/margin_8dp"
             android:layout_marginEnd="@dimen/margin_16dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/cerrar_sesion" />
     </LinearLayout>
 </LinearLayout>
