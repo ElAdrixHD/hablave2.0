@@ -49,4 +49,5 @@
     <string name="date_underAge">No se permite menores de 16 años</string>
     <string name="guardar">Guardar</string>
     <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="profile_updated">Se ha actualizado el perfil</string>
 </resources>

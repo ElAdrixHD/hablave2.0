@@ -17,7 +17,14 @@ class FirebaseDatabaseRepository {
     }
 
     interface ProfileDataInteract{
-        fun onSuccessGetDatabaseData(gender: String, birthday: String)
+        fun onSuccessGetDatabaseData(
+            gender: String,
+            birthday: String,
+            name: String,
+            email: String
+        )
+
+        fun onSuccessUpdateDatabaseData()
     }
 
     companion object {
@@ -64,8 +71,25 @@ class FirebaseDatabaseRepository {
     ) {
         database.collection("User").document(uid).get().addOnSuccessListener {
             if (it.exists()){
-                profileDataPresenter.onSuccessGetDatabaseData(it.get("gender").toString(),it.get("birthday").toString())
+                profileDataPresenter.onSuccessGetDatabaseData(
+                    it.get("gender").toString(),
+                    it.get("birthday").toString(),
+                    it.get("nameAndSurname").toString(),
+                    it.get("email").toString()
+                )
             }
+        }
+    }
+
+    fun updateUser(
+        name: String,
+        date: String,
+        gender: String,
+        profileDataPresenter: ProfileDataInteract,
+        user: String
+    ) {
+        database.collection("User").document(user).update("nameAndSurname",name,"birthday",date,"gender",gender).addOnSuccessListener {
+            profileDataPresenter.onSuccessUpdateDatabaseData()
         }
     }
 }

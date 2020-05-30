@@ -9,13 +9,21 @@ class ProfileDataContract {
         fun onDateError(error: Int)
         fun onClearDate()
         fun onGenderError(error: Int)
+        fun showLoading()
+        fun disableLoading()
         fun onClearGender()
-        fun onSuccessGetAuth(name: String, email: String)
-        fun onSuccessGetDatabase( date: String, gender: String)
+        fun onSuccessGetDatabase(
+            date: String,
+            gender: String,
+            name: String,
+            email: String
+        )
+        fun onSuccessUpdateDatabase()
     }
 
     interface Presenter{
         fun loadData()
         fun logOut()
+        fun updateProfile(name: String, date:String, gender: String)
     }
 }
