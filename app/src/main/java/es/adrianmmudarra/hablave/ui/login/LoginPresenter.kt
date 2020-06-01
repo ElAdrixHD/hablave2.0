@@ -5,10 +5,10 @@ import com.google.firebase.auth.FirebaseUser
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
-import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseRepository
+import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseUserRepository
 import es.adrianmmudarra.hablave.utils.isEmailValid
 
-class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter, FirebaseAuthRepository.LoginInteract, FirebaseDatabaseRepository.LoginInteract {
+class LoginPresenter(private val view: LoginContract.View): LoginContract.Presenter, FirebaseAuthRepository.LoginInteract, FirebaseDatabaseUserRepository.LoginInteract {
 
     override fun checkData(email: String, password: String) {
         if(checkEmail(email) and checkPassword(password)){
@@ -109,6 +109,6 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
     }
 
     override fun onSuccessLoginGoogle(user: FirebaseUser) {
-        FirebaseDatabaseRepository.getInstance().checkUser(user,this)
+        FirebaseDatabaseUserRepository.getInstance().checkUser(user,this)
     }
 }

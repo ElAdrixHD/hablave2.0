@@ -1,16 +1,15 @@
 package es.adrianmmudarra.hablave.ui.register
 
 import com.google.firebase.auth.FirebaseUser
-import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
-import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseRepository
+import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseUserRepository
 import es.adrianmmudarra.hablave.utils.getAge
 import es.adrianmmudarra.hablave.utils.isEmailValid
 
 //TODO AÑADIR MAS CASOS DE USO
-class RegisterPresenter(private val view: RegisterContract.View): RegisterContract.Presenter, FirebaseAuthRepository.RegisterInteract, FirebaseDatabaseRepository.RegisterInteract {
+class RegisterPresenter(private val view: RegisterContract.View): RegisterContract.Presenter, FirebaseAuthRepository.RegisterInteract, FirebaseDatabaseUserRepository.RegisterInteract {
     override fun checkData(
         name: String,
         date: String,
@@ -64,6 +63,7 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         }
         if(date.getAge()!! < 16){
             view.onDateUnderAge(R.string.date_underAge)
+            return false
         }
         view.onClearDate()
         return true
@@ -85,7 +85,7 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         date: String,
         gender: String
     ) {
-        FirebaseDatabaseRepository.getInstance().addUser(User(uid,email).apply { this.nameAndSurname = name; this.birthday = date; this.gender = gender },this,false)
+        FirebaseDatabaseUserRepository.getInstance().addUser(User(uid,email).apply { this.nameAndSurname = name; this.birthday = date; this.gender = gender },this,false)
     }
 
     override fun deleteUser() {
@@ -101,7 +101,7 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
     ) {
         if (checkName(name) and checkDate(date) and checkGender(gender) and checkEmail(email)){
             user?.apply { birthday = date; this.nameAndSurname = name; this.gender = gender; }
-            FirebaseDatabaseRepository.getInstance().addUser(user!!, this, true)
+            FirebaseDatabaseUserRepository.getInstance().addUser(user!!, this, true)
         }
     }
 

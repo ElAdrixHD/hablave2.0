@@ -20,7 +20,10 @@
             android:id="@+id/tiledCreateTripStationOrigin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/estacion_origen" />
+            android:hint="@string/estacion_origen"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -36,7 +39,10 @@
             android:id="@+id/tiledCreateTripStationDest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/estacion_destino" />
+            android:hint="@string/estacion_destino"
+            android:clickable="true"
+            android:focusable="false"
+            android:inputType="none"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -59,7 +65,10 @@
                 android:id="@+id/tiledCreateTripDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/fecha_viaje" />
+                android:hint="@string/fecha_viaje"
+                android:clickable="true"
+                android:focusable="false"
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -88,7 +97,7 @@
         android:layout_marginTop="@dimen/margin_16dp"
         android:checked="false"
         android:text="@string/usted_ya_tiene_el_billete_comprado"
-        android:thumbTint="@color/primary_dark"
+        android:thumbTint="@color/primary"
         android:trackTint="#000000" />
 
 
@@ -105,6 +114,7 @@
             android:layout_marginStart="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
             android:layout_weight="1"
+            android:enabled="false"
             android:text="@string/crear_viaje" />
 
         <ProgressBar

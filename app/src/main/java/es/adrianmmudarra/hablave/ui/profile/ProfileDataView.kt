@@ -106,23 +106,23 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
     }
 
     override fun onNameError(error: Int) {
-        tiledProfileName.error = getString(error)
+        tilProfileName.error = getString(error)
     }
 
     override fun onClearName() {
-        tiledProfileName.error = null
+        tilProfileName.error = null
     }
 
     override fun onDateError(error: Int) {
-        tiledProfileBirthday.error = getString(error)
+        tilProfileBirthday.error = getString(error)
     }
 
     override fun onClearDate() {
-        tiledProfileBirthday.error = null
+        tilProfileBirthday.error = null
     }
 
     override fun onGenderError(error: Int) {
-        tiledProfileGender.error = getString(error)
+        tilProfileGender.error = getString(error)
     }
 
     override fun showLoading() {
@@ -134,7 +134,7 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
     }
 
     override fun onClearGender() {
-        tiledProfileGender.error = null
+        tilProfileGender.error = null
     }
 
     override fun onSuccessGetDatabase(
@@ -152,6 +152,10 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
 
     override fun onSuccessUpdateDatabase() {
         onSnakbarError(R.string.profile_updated)
+    }
+
+    override fun onDateUnderAge(error: Int) {
+        tilProfileBirthday.error = getString(error)
     }
 
     override fun setPresenter(presenter: ProfileDataContract.Presenter) {

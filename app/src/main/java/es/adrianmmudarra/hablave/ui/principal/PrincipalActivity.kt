@@ -8,25 +8,26 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.internal.DescendantOffsetUtils
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.ui.create.CreateTripPresenter
 import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
-import es.adrianmmudarra.hablave.ui.profile.ProfileDataContract
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
 import es.adrianmmudarra.hablave.ui.profile.ProfileView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
 
     private var principalView: PrincipalView? = null
     private var profileView: ProfileView? = null
+
     private var createTripView: CreateTripView? = null
+    private var createTripPresenter: CreateTripPresenter? = null
 
     private var doubleBack = false
 
@@ -81,6 +82,8 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
             .replace(R.id.contenido, createTripView!!, CreateTripView.TAG)
             .addToBackStack(null)
             .commit()
+        createTripPresenter = CreateTripPresenter(createTripView!!)
+        createTripView?.setPresenter(createTripPresenter!!)
     }
 
     private fun showSearch() {
@@ -139,5 +142,13 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     override fun onLogOut() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
+    }
+
+    override fun onCancel() {
+        onBackPressed()
+    }
+
+    override fun onSuccessCreate() {
+        TODO("Not yet implemented")
     }
 }

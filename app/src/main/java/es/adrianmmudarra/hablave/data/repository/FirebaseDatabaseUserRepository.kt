@@ -4,7 +4,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import es.adrianmmudarra.hablave.data.model.User
 
-class FirebaseDatabaseRepository {
+class FirebaseDatabaseUserRepository {
 
     interface LoginInteract {
         fun onSuccessLogin()
@@ -28,13 +28,13 @@ class FirebaseDatabaseRepository {
     }
 
     companion object {
-        private var INSTANCE: FirebaseDatabaseRepository? = null
+        private var INSTANCE: FirebaseDatabaseUserRepository? = null
 
-        fun getInstance(): FirebaseDatabaseRepository {
+        fun getInstance(): FirebaseDatabaseUserRepository {
             if (INSTANCE == null) {
-                INSTANCE = FirebaseDatabaseRepository()
+                INSTANCE = FirebaseDatabaseUserRepository()
             }
-            return INSTANCE as FirebaseDatabaseRepository
+            return INSTANCE as FirebaseDatabaseUserRepository
         }
     }
 

@@ -19,6 +19,7 @@ class ProfileDataContract {
             email: String
         )
         fun onSuccessUpdateDatabase()
+        fun onDateUnderAge(error: Int)
     }
 
     interface Presenter{
