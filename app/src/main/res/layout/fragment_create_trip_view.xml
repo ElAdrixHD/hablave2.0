@@ -115,7 +115,6 @@
             android:layout_marginStart="@dimen/margin_16dp"
             android:layout_marginTop="@dimen/margin_16dp"
             android:layout_weight="1"
-            android:enabled="false"
             android:text="@string/crear_viaje" />
 
         <ProgressBar

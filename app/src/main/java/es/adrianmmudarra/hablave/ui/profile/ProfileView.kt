@@ -1,5 +1,6 @@
 package es.adrianmmudarra.hablave.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,9 +14,21 @@ import kotlinx.android.synthetic.main.fragment_profile_view.*
 
 class ProfileView : Fragment() {
 
+    private var activity: OnProfileViewInterface? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance= true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.onResumeProfileView()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        this.activity = context as OnProfileViewInterface
     }
 
     override fun onCreateView(
@@ -34,6 +47,10 @@ class ProfileView : Fragment() {
                 0 -> { tab.text = getString(R.string.profile)}
                 1 -> { tab.text = getString(R.string.trips_history)}
         }  }.attach()
+    }
+
+    interface OnProfileViewInterface{
+        fun onResumeProfileView()
     }
 
     companion object {

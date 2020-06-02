@@ -18,7 +18,7 @@ import es.adrianmmudarra.hablave.ui.profile.ProfileView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -61,11 +61,14 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         if (profileView == null){
             profileView = ProfileView.newInstance(null)
         }
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.contenido, profileView!!, ProfileView.TAG)
             .addToBackStack(null)
             .commit()
+
     }
 
     private fun showChats() {
@@ -77,6 +80,8 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         if (createTripView == null){
             createTripView = CreateTripView.newInstance(null)
         }
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.contenido, createTripView!!, CreateTripView.TAG)
@@ -84,6 +89,7 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
             .commit()
         createTripPresenter = CreateTripPresenter(createTripView!!)
         createTripView?.setPresenter(createTripPresenter!!)
+
     }
 
     private fun showSearch() {
@@ -150,5 +156,17 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     override fun onSuccessCreate() {
         TODO("Not yet implemented")
+    }
+
+    override fun onResumeCreateTrip() {
+        if(bottom_nav_menu.selectedItemId != R.id.nav_create){
+            bottom_nav_menu.selectedItemId = R.id.nav_create
+        }
+    }
+
+    override fun onResumeProfileView() {
+        if(bottom_nav_menu.selectedItemId != R.id.nav_profile){
+            bottom_nav_menu.selectedItemId = R.id.nav_profile
+        }
     }
 }

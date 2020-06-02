@@ -42,6 +42,11 @@ class CreateTripView : Fragment(), CreateTripContract.View {
         presenter?.getStations()
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.onResumeCreateTrip()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,6 +94,10 @@ class CreateTripView : Fragment(), CreateTripContract.View {
                onToastError("Selecciona las estaciones")
             }
         }
+
+        btnCreateTripCancel.setOnClickListener {
+            activity?.onCancel()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -105,6 +114,7 @@ class CreateTripView : Fragment(), CreateTripContract.View {
     interface OnCreateTripInterface{
         fun onCancel()
         fun onSuccessCreate()
+        fun onResumeCreateTrip()
     }
 
     companion object {
@@ -152,7 +162,6 @@ class CreateTripView : Fragment(), CreateTripContract.View {
         this.stations.clear()
         this.stations.addAll(stations)
         this.adapter?.notifyDataSetChanged()
-        btnCreateTripCreate.isEnabled = true
     }
 
     override fun setPresenter(presenter: CreateTripContract.Presenter) {
