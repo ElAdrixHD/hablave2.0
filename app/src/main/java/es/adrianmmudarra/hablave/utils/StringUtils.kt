@@ -28,3 +28,8 @@ fun String.getAge(): Int? {
     }
     return age
 }
+
+fun String.dateToLong(): Long{
+    val date = sdf.parse(this)
+    return date.time
+}

@@ -20,5 +20,6 @@ class CreateTripContract {
 
     interface Presenter{
         fun getStations()
+        fun createTrip(stationOrigin: Station, stationDest: Station, date: String, price: String, hasTicket: Boolean)
     }
 }

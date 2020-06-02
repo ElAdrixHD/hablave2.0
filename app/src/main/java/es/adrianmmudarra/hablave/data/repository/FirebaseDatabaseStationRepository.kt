@@ -1,6 +1,5 @@
 package es.adrianmmudarra.hablave.data.repository
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import es.adrianmmudarra.hablave.data.model.Station
 

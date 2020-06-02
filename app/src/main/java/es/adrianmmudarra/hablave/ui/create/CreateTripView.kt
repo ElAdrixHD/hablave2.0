@@ -29,6 +29,9 @@ class CreateTripView : Fragment(), CreateTripContract.View {
     private val stations : ArrayList<Station> = ArrayList()
     private var adapter: ArrayAdapter<Station>? = null
 
+    private var stationOrigin: Station? = null
+    private var stationDest: Station? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -55,7 +58,7 @@ class CreateTripView : Fragment(), CreateTripContract.View {
                     adapter,
                     0
                 ) { dialog, item ->
-
+                    stationOrigin = adapter!!.getItem(item)
                     (it as TextInputEditText).setText(adapter!!.getItem(item).toString())
                     dialog.dismiss() }
 
@@ -68,7 +71,7 @@ class CreateTripView : Fragment(), CreateTripContract.View {
                     adapter,
                     0
                 ) { dialog, item ->
-
+                    stationDest = adapter!!.getItem(item)
                     (it as TextInputEditText).setText(adapter!!.getItem(item).toString())
                     dialog.dismiss() }
 
@@ -77,6 +80,14 @@ class CreateTripView : Fragment(), CreateTripContract.View {
 
         tiledCreateTripDate.setOnClickListener {
             clickDataPicker()
+        }
+
+        btnCreateTripCreate.setOnClickListener {
+            if (stationOrigin != null && stationDest != null){
+                presenter?.createTrip(stationOrigin!!, stationDest!!, tiledCreateTripDate.text.toString(), tiledCreateTripPrice.text.toString(), swCreateTripTicket.isChecked)
+            }else{
+               onToastError("Selecciona las estaciones")
+            }
         }
     }
 
@@ -141,6 +152,7 @@ class CreateTripView : Fragment(), CreateTripContract.View {
         this.stations.clear()
         this.stations.addAll(stations)
         this.adapter?.notifyDataSetChanged()
+        btnCreateTripCreate.isEnabled = true
     }
 
     override fun setPresenter(presenter: CreateTripContract.Presenter) {
@@ -173,7 +185,7 @@ class CreateTripView : Fragment(), CreateTripContract.View {
             tiledCreateTripDate.setText("$myYear-${String.format("%02d",monthOfYear+1)}-${String.format("%02d",dayOfMonth)}")
 
         }, year, month, day)
-        dpd.datePicker.minDate = c.timeInMillis - 1000
+        dpd.datePicker.minDate = c.add(Calendar.DAY_OF_MONTH,1).let { c.timeInMillis }
         dpd.show()
     }
 }

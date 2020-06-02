@@ -56,4 +56,8 @@
     <string name="precio">Precio total</string>
     <string name="usted_ya_tiene_el_billete_comprado">¿Usted ya tiene el billete comprado?</string>
     <string name="crear_viaje">Crear viaje</string>
+    <string name="same_stations">Has seleccionado las mismas estaciones</string>
+    <string name="emptyPrice">El campo del precio no puede estar vacio</string>
+    <string name="invalid_price_format">Debes poner un precio valido</string>
+    <string name="date_trip_empty">El campo de la fecha no puede estar vacio</string>
 </resources>

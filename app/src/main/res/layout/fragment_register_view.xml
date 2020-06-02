@@ -140,8 +140,8 @@
                 android:id="@+id/progressBarRegister"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_height="match_parent"
+                android:layout_weight="0.4"
                 android:indeterminate="true"
                 android:indeterminateTint="@color/primary_dark"
                 android:visibility="invisible" />
