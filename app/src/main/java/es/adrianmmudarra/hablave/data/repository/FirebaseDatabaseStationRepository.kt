@@ -8,6 +8,9 @@ class FirebaseDatabaseStationRepository {
     interface CreateTripInteract{
         fun onSuccessGetStation(stations: ArrayList<Station>)
     }
+    interface SearchTripInteract{
+        fun onSuccessGetStation(stations: ArrayList<Station>)
+    }
 
     private val database = FirebaseFirestore.getInstance()
 
@@ -29,6 +32,16 @@ class FirebaseDatabaseStationRepository {
                 stations.add(document.toObject(Station::class.java))
             }
             createTripInteract.onSuccessGetStation(stations)
+        }
+    }
+
+    fun getStations(searchTripInteract: SearchTripInteract){
+        val stations = ArrayList<Station>()
+        database.collection("Station").get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                stations.add(document.toObject(Station::class.java))
+            }
+            searchTripInteract.onSuccessGetStation(stations)
         }
     }
 }

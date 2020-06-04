@@ -15,10 +15,12 @@ import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
 import es.adrianmmudarra.hablave.ui.profile.ProfileView
+import es.adrianmmudarra.hablave.ui.search.SearchTripPresenter
+import es.adrianmmudarra.hablave.ui.search.SearchTripView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -28,6 +30,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     private var createTripView: CreateTripView? = null
     private var createTripPresenter: CreateTripPresenter? = null
+
+    private var searchTripView: SearchTripView? = null
+    private var searchTripPresenter: SearchTripPresenter? = null
 
     private var doubleBack = false
 
@@ -93,7 +98,20 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     }
 
     private fun showSearch() {
-        Snackbar.make(mainCoordinator, "Search", Snackbar.LENGTH_SHORT).show()
+        searchTripView = supportFragmentManager.findFragmentByTag(SearchTripView.TAG) as SearchTripView?
+        if (searchTripView == null){
+            searchTripView = SearchTripView.newInstance(null)
+        }
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, searchTripView!!, SearchTripView.TAG)
+            .addToBackStack(null)
+            .commit()
+
+        searchTripPresenter = SearchTripPresenter(searchTripView!!)
+        searchTripView?.setPresenter(searchTripPresenter!!)
     }
 
     private fun showPrincipal() {
@@ -167,6 +185,12 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     override fun onResumeProfileView() {
         if(bottom_nav_menu.selectedItemId != R.id.nav_profile){
             bottom_nav_menu.selectedItemId = R.id.nav_profile
+        }
+    }
+
+    override fun onResumeSearchTrip() {
+        if(bottom_nav_menu.selectedItemId != R.id.nav_search){
+            bottom_nav_menu.selectedItemId = R.id.nav_search
         }
     }
 }
