@@ -15,8 +15,10 @@ import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
 import es.adrianmmudarra.hablave.ui.profile.ProfileView
+import es.adrianmmudarra.hablave.ui.search.SearchTripContract
 import es.adrianmmudarra.hablave.ui.search.SearchTripPresenter
 import es.adrianmmudarra.hablave.ui.search.SearchTripView
+import es.adrianmmudarra.hablave.ui.searchList.SearchTripListView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
@@ -34,6 +36,8 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     private var searchTripView: SearchTripView? = null
     private var searchTripPresenter: SearchTripPresenter? = null
 
+    private var searchListTripView: SearchTripListView? = null
+
     private var doubleBack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +53,23 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
         bottom_nav_menu.setOnNavigationItemSelectedListener {
             when (it.itemId){
-                R.id.nav_trip -> showPrincipal()
-                R.id.nav_search -> showSearch()
-                R.id.nav_create -> showCreate()
+                R.id.nav_trip -> {
+                    if (bottom_nav_menu.selectedItemId != R.id.nav_trip)
+                        showPrincipal()
+                }
+                R.id.nav_search -> {
+                    if (bottom_nav_menu.selectedItemId != R.id.nav_search)
+                        showSearch()
+                }
+                R.id.nav_create -> {
+                    if (bottom_nav_menu.selectedItemId != R.id.nav_create)
+                        showCreate()
+                }
                 R.id.nav_chat -> showChats()
-                R.id.nav_profile -> showProfile()
+                R.id.nav_profile -> {
+                    if (bottom_nav_menu.selectedItemId != R.id.nav_profile)
+                        showProfile()
+                }
             }
             return@setOnNavigationItemSelectedListener true
         }
@@ -170,6 +186,19 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     override fun onCancel() {
         onBackPressed()
+    }
+
+    override fun onSearchTrip(bundle: Bundle) {
+        searchListTripView = supportFragmentManager.findFragmentByTag(SearchTripListView.TAG) as SearchTripListView?
+        if (searchListTripView == null){
+            searchListTripView = SearchTripListView.newInstance(bundle)
+        }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, searchListTripView!!, SearchTripListView.TAG)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onSuccessCreate() {

@@ -61,4 +61,6 @@
     <string name="invalid_price_format">Debes poner un precio valido</string>
     <string name="date_trip_empty">El campo de la fecha no puede estar vacio</string>
     <string name="buscar_viaje">Buscar viaje</string>
+    <string name="station_origin_error">La estacion origen esta vacia</string>
+    <string name="station_destiny_error">La estacion destino esta vacia</string>
 </resources>

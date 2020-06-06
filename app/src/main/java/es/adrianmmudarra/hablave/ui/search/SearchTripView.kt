@@ -101,11 +101,16 @@ class SearchTripView : Fragment(), SearchTripContract.View {
         btnSearchTripCancel.setOnClickListener {
             activity?.onCancel()
         }
+
+        btnSearchTrip.setOnClickListener {
+            presenter?.checkData(stationOrigin, stationDest, tiledSearchTripDate.text.toString())
+        }
     }
 
     interface OnSearchTripInterface{
         fun onResumeSearchTrip()
         fun onCancel()
+        fun onSearchTrip(bundle: Bundle)
     }
 
     companion object {
@@ -159,6 +164,10 @@ class SearchTripView : Fragment(), SearchTripContract.View {
         this.stations.clear()
         this.stations.addAll(station)
         this.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onSuccessCheck(bundle: Bundle) {
+        activity?.onSearchTrip(bundle)
     }
 
     override fun setPresenter(presenter: SearchTripContract.Presenter) {
