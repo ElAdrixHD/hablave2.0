@@ -1,23 +1,45 @@
 package es.adrianmmudarra.hablave.ui.searchList
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.adapter.TripListAdapter
+import es.adrianmmudarra.hablave.data.model.Station
 import es.adrianmmudarra.hablave.data.model.Trip
+import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
 import kotlinx.android.synthetic.main.fragment_search_trip_list_view.*
 
-class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterface{
+class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterface, SearchListContract.View{
 
-    var adapter : TripListAdapter? = null
+    private var adapter : TripListAdapter? = null
+    private var presenter : SearchListContract.Presenter? = null
+    private var activity: OnSearchTripListViewInterface? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter?.loadTrips(arguments?.getParcelable("ORIGIN")!!, arguments?.getParcelable("DESTINY")!!, arguments?.getString("DATE")!!)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = context as OnSearchTripListViewInterface
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity = null
     }
 
     override fun onCreateView(
@@ -35,6 +57,10 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
         recyclerSearchTripList.layoutManager = LinearLayoutManager(context)
     }
 
+    interface OnSearchTripListViewInterface{
+        fun onSelectedTrip(trip: Trip)
+    }
+
     companion object {
         const val TAG = "SearchTripListView"
         @JvmStatic
@@ -50,5 +76,58 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
 
     override fun onLongClick(trip: Trip) {
         TODO("Not yet implemented")
+    }
+
+    override fun onSuccessTripList(list: ArrayList<Trip>) {
+        adapter?.clear()
+        adapter?.addAll(list)
+        ivNoDataSearchTripList.visibility = View.GONE
+    }
+
+    override fun onAddTrip(trip: Trip) {
+        adapter?.addTrip(trip)
+        if (adapter?.itemCount == 0){
+            noTrips()
+        }else{
+            ivNoDataSearchTripList.visibility = View.GONE
+        }
+    }
+
+    override fun onRemoveTrip(trip: Trip) {
+        adapter?.removeTrip(trip)
+        if (adapter?.itemCount == 0){
+            noTrips()
+        }else{
+            ivNoDataSearchTripList.visibility = View.GONE
+        }
+    }
+
+    override fun noTrips() {
+        adapter?.clear()
+        ivNoDataSearchTripList.visibility = View.VISIBLE
+    }
+
+    override fun onUpdatedTrip(trip: Trip) {
+        adapter?.updateTrip(trip)
+    }
+
+    override fun setPresenter(presenter: SearchListContract.Presenter) {
+        this.presenter = presenter
+    }
+
+    override fun onToastError(error: Int) {
+        Toast.makeText(context, getString(error), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onToastError(error: String) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onSnakbarError(error: Int) {
+        Snackbar.make((activity as PrincipalActivity).mainCoordinator,getString(error), Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onSnakbarError(error: String) {
+        Snackbar.make((activity as PrincipalActivity).mainCoordinator,error, Snackbar.LENGTH_SHORT).show()
     }
 }

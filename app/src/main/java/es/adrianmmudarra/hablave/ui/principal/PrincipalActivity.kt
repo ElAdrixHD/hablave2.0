@@ -10,6 +10,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.create.CreateTripPresenter
 import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
@@ -18,11 +19,12 @@ import es.adrianmmudarra.hablave.ui.profile.ProfileView
 import es.adrianmmudarra.hablave.ui.search.SearchTripContract
 import es.adrianmmudarra.hablave.ui.search.SearchTripPresenter
 import es.adrianmmudarra.hablave.ui.search.SearchTripView
+import es.adrianmmudarra.hablave.ui.searchList.SearchListPresenter
 import es.adrianmmudarra.hablave.ui.searchList.SearchTripListView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -37,6 +39,7 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     private var searchTripPresenter: SearchTripPresenter? = null
 
     private var searchListTripView: SearchTripListView? = null
+    private var searchTripListPresenter: SearchListPresenter? = null
 
     private var doubleBack = false
 
@@ -199,6 +202,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
             .replace(R.id.contenido, searchListTripView!!, SearchTripListView.TAG)
             .addToBackStack(null)
             .commit()
+
+        searchTripListPresenter = SearchListPresenter(searchListTripView!!)
+        searchListTripView?.setPresenter(searchTripListPresenter!!)
     }
 
     override fun onSuccessCreate() {
@@ -221,5 +227,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         if(bottom_nav_menu.selectedItemId != R.id.nav_search){
             bottom_nav_menu.selectedItemId = R.id.nav_search
         }
+    }
+
+    override fun onSelectedTrip(trip: Trip) {
+        TODO("Not yet implemented")
     }
 }
