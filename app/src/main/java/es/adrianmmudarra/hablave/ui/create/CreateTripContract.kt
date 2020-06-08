@@ -1,6 +1,7 @@
 package es.adrianmmudarra.hablave.ui.create
 
 import es.adrianmmudarra.hablave.data.model.Station
+import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.base.BaseView
 
 class CreateTripContract {
@@ -16,6 +17,7 @@ class CreateTripContract {
         fun onClearPriceTrip()
 
         fun setStations(stations: ArrayList<Station>)
+        fun onSuccessCreateTrip(trip: Trip)
     }
 
     interface Presenter{

@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Gender
 import es.adrianmmudarra.hablave.data.model.Station
+import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
 import kotlinx.android.synthetic.main.fragment_create_trip_view.*
 import kotlinx.android.synthetic.main.fragment_register_view.*
@@ -113,7 +114,7 @@ class CreateTripView : Fragment(), CreateTripContract.View {
 
     interface OnCreateTripInterface{
         fun onCancel()
-        fun onSuccessCreate()
+        fun onSuccessCreate(trip: Trip)
         fun onResumeCreateTrip()
     }
 
@@ -162,6 +163,10 @@ class CreateTripView : Fragment(), CreateTripContract.View {
         this.stations.clear()
         this.stations.addAll(stations)
         this.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onSuccessCreateTrip(trip: Trip) {
+        activity?.onSuccessCreate(trip)
     }
 
     override fun setPresenter(presenter: CreateTripContract.Presenter) {

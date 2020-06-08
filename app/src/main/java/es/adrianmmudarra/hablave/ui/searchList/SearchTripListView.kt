@@ -29,6 +29,7 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
 
     override fun onStart() {
         super.onStart()
+        adapter?.clear()
         presenter?.loadTrips(arguments?.getParcelable("ORIGIN")!!, arguments?.getParcelable("DESTINY")!!, arguments?.getString("DATE")!!)
     }
 
@@ -71,40 +72,48 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
     }
 
     override fun onClick(trip: Trip) {
-        TODO("Not yet implemented")
+        activity?.onSelectedTrip(trip)
     }
 
     override fun onLongClick(trip: Trip) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onSuccessTripList(list: ArrayList<Trip>) {
-        adapter?.clear()
-        adapter?.addAll(list)
-        ivNoDataSearchTripList.visibility = View.GONE
+        if(this.isVisible){
+            adapter?.clear()
+            adapter?.addAll(list)
+            ivNoDataSearchTripList.visibility = View.GONE
+        }
     }
 
     override fun onAddTrip(trip: Trip) {
-        adapter?.addTrip(trip)
-        if (adapter?.itemCount == 0){
-            noTrips()
-        }else{
-            ivNoDataSearchTripList.visibility = View.GONE
+        if (this.isVisible){
+            adapter?.addTrip(trip)
+            if (adapter?.itemCount == 0){
+                noTrips()
+            }else{
+                ivNoDataSearchTripList.visibility = View.GONE
+            }
         }
     }
 
     override fun onRemoveTrip(trip: Trip) {
-        adapter?.removeTrip(trip)
-        if (adapter?.itemCount == 0){
-            noTrips()
-        }else{
-            ivNoDataSearchTripList.visibility = View.GONE
+        if (this.isVisible){
+            adapter?.removeTrip(trip)
+            if (adapter?.itemCount == 0){
+                noTrips()
+            }else{
+                ivNoDataSearchTripList.visibility = View.GONE
+            }
         }
     }
 
     override fun noTrips() {
-        adapter?.clear()
-        ivNoDataSearchTripList.visibility = View.VISIBLE
+        if (this.isVisible){
+            adapter?.clear()
+            ivNoDataSearchTripList.visibility = View.VISIBLE
+        }
     }
 
     override fun onUpdatedTrip(trip: Trip) {

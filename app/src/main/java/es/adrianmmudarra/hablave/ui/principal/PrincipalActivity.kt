@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Trip
+import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripContract
+import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
+import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripView
 import es.adrianmmudarra.hablave.ui.create.CreateTripPresenter
 import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
@@ -24,7 +27,7 @@ import es.adrianmmudarra.hablave.ui.searchList.SearchTripListView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -40,6 +43,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     private var searchListTripView: SearchTripListView? = null
     private var searchTripListPresenter: SearchListPresenter? = null
+
+    private var confirmTripView: ConfirmTripView? = null
+    private var confirmTripPresenter: ConfirmTripPresenter? = null
 
     private var doubleBack = false
 
@@ -191,6 +197,10 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         onBackPressed()
     }
 
+    override fun onDeletedTrip() {
+        showPrincipal()
+    }
+
     override fun onSearchTrip(bundle: Bundle) {
         searchListTripView = supportFragmentManager.findFragmentByTag(SearchTripListView.TAG) as SearchTripListView?
         if (searchListTripView == null){
@@ -207,8 +217,8 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
         searchListTripView?.setPresenter(searchTripListPresenter!!)
     }
 
-    override fun onSuccessCreate() {
-        TODO("Not yet implemented")
+    override fun onSuccessCreate(trip: Trip) {
+        showConfirmTrip(trip)
     }
 
     override fun onResumeCreateTrip() {
@@ -230,6 +240,22 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     }
 
     override fun onSelectedTrip(trip: Trip) {
-        TODO("Not yet implemented")
+        showConfirmTrip(trip)
+    }
+
+    private fun showConfirmTrip(trip: Trip) {
+        confirmTripView = supportFragmentManager.findFragmentByTag(ConfirmTripView.TAG) as ConfirmTripView?
+        if (confirmTripView == null){
+            var bundle = Bundle().apply { putParcelable(Trip.TAG, trip) }
+            confirmTripView = ConfirmTripView.newInstance(bundle)
+        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, confirmTripView!!, ConfirmTripView.TAG)
+            .addToBackStack(null)
+            .commit()
+
+        confirmTripPresenter = ConfirmTripPresenter(confirmTripView!!)
+        confirmTripView?.setPresenter(confirmTripPresenter!!)
     }
 }

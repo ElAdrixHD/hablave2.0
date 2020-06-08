@@ -43,6 +43,7 @@ class LoginView : Fragment(), LoginContract.View {
     override fun onStart() {
         super.onStart()
         if (presenter?.checkUserLogged()!!){
+            presenter?.getUser()
             onLoginViewInteract?.onSuccessLogin()
         }
     }
@@ -183,6 +184,7 @@ class LoginView : Fragment(), LoginContract.View {
             .setPositiveButton(android.R.string.ok, null)
             .setIcon(R.drawable.ic_warning_24dp)
             .show()
+        presenter?.signout()
     }
 
     override fun needRegisterGoogle(user: User) {

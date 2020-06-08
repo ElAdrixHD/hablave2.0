@@ -63,4 +63,17 @@
     <string name="buscar_viaje">Buscar viaje</string>
     <string name="station_origin_error">La estacion origen esta vacia</string>
     <string name="station_destiny_error">La estacion destino esta vacia</string>
+    <string name="tu_viaje">TU VIAJE</string>
+    <string name="acompanantes">ACOMPAÑANTES</string>
+    <string name="estaciones">ESTACIONES</string>
+    <string name="provicia_origen">Provicina origen</string>
+    <string name="provincia_destino">Provincia Destino</string>
+    <string name="price">PRECIO</string>
+    <string name="reservar">Reservar</string>
+    <string name="eliminar_viaje">Eliminar viaje</string>
+    <string name="plaza_libre">Plaza disponible</string>
+    <string name="trip_deleted">Viaje eliminado</string>
+    <string name="mensaje_viaje_eliminado">Este viaje ya no está disponible. Usted va a volver a la pantalla principal.</string>
+    <string name="borrar_viaje">Borrar Viaje</string>
+    <string name="pregunta_viaje_eliminar">¿Estas seguro que quieres borrar este viaje?</string>
 </resources>

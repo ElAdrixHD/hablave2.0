@@ -7,8 +7,9 @@ import es.adrianmmudarra.hablave.data.model.User
 class FirebaseDatabaseUserRepository {
 
     interface LoginInteract {
-        fun onSuccessLogin()
+        fun onSuccessLogin(user: User?)
         fun needRegister(user: User)
+        fun onSuccessGetUser(user: User?)
     }
 
     interface RegisterInteract {
@@ -41,7 +42,7 @@ class FirebaseDatabaseUserRepository {
     private val database = FirebaseFirestore.getInstance()
 
     fun addUser(user: User, registerInteract: RegisterInteract, withGoogle: Boolean) {
-        database.collection("User").document(user.uid).set(user).addOnCompleteListener {
+        database.collection("User").document(user.uid!!).set(user).addOnCompleteListener {
             if (it.isSuccessful) {
                 if (withGoogle){
                     registerInteract.onSuccessRegisterWithGoogle()
@@ -55,15 +56,25 @@ class FirebaseDatabaseUserRepository {
         fun checkUser(user: FirebaseUser, loginInteract: LoginInteract) {
             database.collection("User").document(user.uid).get().addOnSuccessListener {
                 if (it.exists()) {
-                    loginInteract.onSuccessLogin()
+                    loginInteract.onSuccessLogin(it.toObject(User::class.java))
                 } else {
-                    val newUser = User(user.uid, user.email!!).apply {
+                    val newUser = User().apply {
+                        this.uid = user.uid
+                        this.email = user.email
                         this.nameAndSurname = user.displayName!!;
                     }
                     loginInteract.needRegister(newUser)
                 }
             }
         }
+
+    fun checkUser(user: String, loginInteract: LoginInteract) {
+        database.collection("User").document(user).get().addOnSuccessListener {
+            if (it.exists()) {
+                loginInteract.onSuccessLogin(it.toObject(User::class.java))
+            }
+        }
+    }
 
     fun getDataUser(
         uid: String,
@@ -77,6 +88,17 @@ class FirebaseDatabaseUserRepository {
                     it.get("nameAndSurname").toString(),
                     it.get("email").toString()
                 )
+            }
+        }
+    }
+
+    fun getDataUser(
+        uid: String,
+        loginInteract: LoginInteract
+    ) {
+        database.collection("User").document(uid).get().addOnSuccessListener {
+            if (it.exists()){
+                loginInteract.onSuccessGetUser(it.toObject(User::class.java))
             }
         }
     }

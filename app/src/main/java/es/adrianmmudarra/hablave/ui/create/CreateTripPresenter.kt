@@ -27,10 +27,13 @@ class CreateTripPresenter(val view: CreateTripContract.View): CreateTripContract
             FirebaseDatabaseTripRepository.getInstance().addTrip(Trip().apply {
                 this.stationOrigin = stationOrigin.station
                 this.stationDest = stationDest.station
+                this.provinceOrigin = stationOrigin.city
+                this.provinceDest = stationDest.city
                 this.dateTrip = date.dateToLong()
                 this.price = price.toDouble()
                 this.hasTicket = hasTicket
                 this.owner = FirebaseAuth.getInstance().currentUser?.uid!!
+                this.ownerName = HablaveApplication.context.user?.nameAndSurname!!
                 this.uuid = "${this.owner}-${this.dateTrip}"},this)
         }
     }
@@ -72,8 +75,9 @@ class CreateTripPresenter(val view: CreateTripContract.View): CreateTripContract
         view.setStations(stations)
     }
 
-    override fun onSuccessCreateTrip() {
+    override fun onSuccessCreateTrip(trip: Trip) {
         view.onSnakbarError("Se ha creado un viaje")
+        view.onSuccessCreateTrip(trip)
     }
 
     override fun onFailureCreateTrip() {

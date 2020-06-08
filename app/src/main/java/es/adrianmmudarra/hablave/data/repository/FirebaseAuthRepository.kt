@@ -49,7 +49,6 @@ class FirebaseAuthRepository {
                     loginInteract.notVerifiedEmail()
                  }else{
                      loginInteract.onSuccessLogin()
-                     HablaveApplication.userLogged = it.result?.user
                  }
              }
         }
@@ -111,5 +110,6 @@ class FirebaseAuthRepository {
 
     fun signOut(){
         this.auth.signOut()
+        HablaveApplication.context.user = null
     }
 }

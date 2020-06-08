@@ -1,7 +1,9 @@
 package es.adrianmmudarra.hablave.ui.login
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
@@ -31,6 +33,14 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
 
     override fun checkUserLogged(): Boolean {
         return FirebaseAuthRepository.getInstance().getCurrentUser() != null
+    }
+
+    override fun signout() {
+        FirebaseAuthRepository.getInstance().signOut()
+    }
+
+    override fun getUser() {
+        FirebaseDatabaseUserRepository.getInstance().getDataUser(FirebaseAuthRepository.getInstance().getCurrentUser()?.uid!!,this)
     }
 
     private fun checkForgotEmail(email: String): Boolean {
@@ -74,13 +84,23 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
     }
 
     override fun onSuccessLogin() {
+        FirebaseDatabaseUserRepository.getInstance().checkUser(FirebaseAuthRepository.getInstance().getCurrentUser()?.uid!!, this)
+        view.disableLoading()
+    }
+
+    override fun onSuccessLogin(user: User?) {
         view.onSuccessLogin()
+        HablaveApplication.context.user = user
         view.disableLoading()
     }
 
     override fun needRegister(user: User) {
         view.disableLoading()
         view.needRegisterGoogle(user)
+    }
+
+    override fun onSuccessGetUser(user: User?) {
+        HablaveApplication.context.user = user
     }
 
     override fun onFailedLogin() {

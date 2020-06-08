@@ -85,8 +85,10 @@ class TripListAdapter(val listener: OnTripListAdapterInterface): RecyclerView.Ad
     }
 
     fun updateTrip(trip: Trip){
-        this.listTrip[this.listTrip.indexOf(trip)] = trip
-        this.notifyDataSetChanged()
+        if (this.listTrip.indexOf(trip) != -1){
+            this.listTrip[this.listTrip.indexOf(trip)] = trip
+            this.notifyDataSetChanged()
+        }
     }
 
     interface OnTripListAdapterInterface {

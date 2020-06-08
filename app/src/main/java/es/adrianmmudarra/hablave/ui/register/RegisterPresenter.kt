@@ -85,7 +85,7 @@ class RegisterPresenter(private val view: RegisterContract.View): RegisterContra
         date: String,
         gender: String
     ) {
-        FirebaseDatabaseUserRepository.getInstance().addUser(User(uid,email).apply { this.nameAndSurname = name; this.birthday = date; this.gender = gender },this,false)
+        FirebaseDatabaseUserRepository.getInstance().addUser(User().apply {this.uid = uid; this.email = email; this.nameAndSurname = name; this.birthday = date; this.gender = gender },this,false)
     }
 
     override fun deleteUser() {

@@ -1,0 +1,403 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.confirm.ConfirmTripView"
+    android:layout_marginBottom="?attr/actionBarSize">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/tu_viaje"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/H3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Date"
+            android:textSize="@dimen/H5"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+        <View
+            android:id="@+id/bh_1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripDate"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/acompanantes"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bh_1" />
+
+
+        <TextView
+            android:id="@+id/tvConfirmTripMate1Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Mate1"
+            android:textSize="@dimen/H6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+
+        <TextView
+            android:id="@+id/tvConfirmTripMate2Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Mate2"
+            android:textSize="@dimen/H6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate1Name" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripMate3Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Mate3"
+            android:textSize="@dimen/H6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate2Name" />
+
+        <!-- <TextView
+            android:id="@+id/tvConfirmTripMate1Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="-/5"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripMate1Name"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripMate1Name" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_star_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripMate1Rating"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripMate1Rating"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripMate1Rating" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripMate2Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="-/5"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripMate2Name"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripMate2Name" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_star_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripMate2Rating"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripMate2Rating"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripMate2Rating" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripMate3Rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="-/5"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripMate3Name"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripMate3Name" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_star_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripMate3Rating"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripMate3Rating"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripMate3Rating" />-->
+
+        <TextView
+            android:id="@+id/tvConfirmTripCreator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="Creator"
+            android:textSize="@dimen/H6"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+       <!-- <TextView
+            android:id="@+id/tvConfirmTripCreatorRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="-/5"
+            app:layout_constraintStart_toStartOf="@+id/tvConfirmTripCreator"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripCreator" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/ic_star_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripCreatorRating"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripCreatorRating"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripCreatorRating" />-->
+
+        <View
+            android:id="@+id/bh_2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate3Name"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/estaciones"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bh_2" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripOriginStation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/estacion_origen"
+            android:textSize="@dimen/Body_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <View
+            android:id="@+id/bh_3"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="#000000"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripProvinceOrigin"
+            app:layout_constraintEnd_toStartOf="@+id/tvConfirmTripDestinationStation"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripOriginStation"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripOriginStation" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripDestinationStation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/estacion_destino"
+            android:textSize="@dimen/Body_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripProvinceOrigin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/provicia_origen"
+            android:textSize="@dimen/Body_1"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripOriginStation" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripProvinceDestination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/provincia_destino"
+            android:textSize="@dimen/Body_1"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripDestinationStation" />
+
+        <View
+            android:id="@+id/bh_4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripProvinceOrigin"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/price"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bh_4" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripPriceGeneral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="150.00€"
+            android:textSize="@dimen/H6"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripPrice4Person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            android:textColor="#414141"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripPrice3Person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="#414141"
+            app:layout_constraintStart_toStartOf="@+id/tvConfirmTripPrice4Person"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripPrice4Person" />
+
+        <TextView
+            android:id="@+id/tvConfirmTripPrice2Person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            android:textColor="#414141"
+            app:layout_constraintStart_toStartOf="@+id/tvConfirmTripPrice3Person"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripPrice3Person" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="€/4p"
+            android:textColor="#414141"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripPrice4Person"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripPrice4Person"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripPrice4Person" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="€/3p"
+            android:textColor="#414141"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripPrice3Person"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripPrice3Person"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripPrice3Person" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="€/2p"
+            android:textColor="#414141"
+            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripPrice2Person"
+            app:layout_constraintStart_toEndOf="@+id/tvConfirmTripPrice2Person"
+            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripPrice2Person" />
+
+        <View
+            android:id="@+id/bh_5"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="#c0c0c0"
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripPrice2Person"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <Button
+            android:id="@+id/btnConfirmTripReserve"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/reservar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bh_5" />
+
+        <Button
+            android:id="@+id/btnConfirmTripCancel"
+            android:layout_width="0dp"
+            style="@style/ButtonOutlined"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/cancelar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripReserve" />
+
+        <Button
+            android:id="@+id/btnConfirmTripDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/error"
+            android:text="@string/eliminar_viaje"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripCancel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

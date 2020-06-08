@@ -24,5 +24,7 @@ class LoginContract {
         fun signInWithGoogle(acc: GoogleSignInAccount)
         fun forgotPassword(email: String)
         fun checkUserLogged(): Boolean
+        fun signout()
+        fun getUser()
     }
 }

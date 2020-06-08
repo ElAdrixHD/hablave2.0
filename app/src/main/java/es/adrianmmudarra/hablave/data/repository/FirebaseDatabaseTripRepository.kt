@@ -3,6 +3,7 @@ package es.adrianmmudarra.hablave.data.repository
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import es.adrianmmudarra.hablave.data.model.Trip
+import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
 import es.adrianmmudarra.hablave.utils.dateToLong
 
 class FirebaseDatabaseTripRepository {
@@ -11,7 +12,7 @@ class FirebaseDatabaseTripRepository {
 
 
     interface OnCreateTripInteract{
-        fun onSuccessCreateTrip()
+        fun onSuccessCreateTrip(trip: Trip)
         fun onFailureCreateTrip()
     }
 
@@ -20,6 +21,11 @@ class FirebaseDatabaseTripRepository {
         fun onDeletedTrip(trip: Trip)
         fun onUpdateTrip(trip: Trip)
         fun noData()
+    }
+
+    interface OnConfrimTripInteract{
+        fun onUpdatedTrip(trip: Trip)
+        fun onDeletedTrip()
     }
     companion object{
         private var INSTANCE: FirebaseDatabaseTripRepository? = null
@@ -34,7 +40,7 @@ class FirebaseDatabaseTripRepository {
 
     fun addTrip(trip: Trip, listener: OnCreateTripInteract){
         database.collection("Trip").document(trip.uuid).set(trip).addOnSuccessListener {
-            listener.onSuccessCreateTrip()
+            listener.onSuccessCreateTrip(trip)
         }.addOnFailureListener {
             listener.onFailureCreateTrip()
         }
@@ -58,10 +64,36 @@ class FirebaseDatabaseTripRepository {
                 when(dc.type){
                     DocumentChange.Type.ADDED -> listInteract.onSuccessSearchTrip(dc.document.toObject(Trip::class.java))
                     DocumentChange.Type.MODIFIED -> listInteract.onUpdateTrip(dc.document.toObject(Trip::class.java))
-                    DocumentChange.Type.REMOVED -> listInteract.onDeletedTrip(dc.document.toObject(Trip::class.java))
+                    DocumentChange.Type.REMOVED -> listInteract.onDeletedTrip(dc.document.toObject(Trip::class.java));
                 }
             }
 
         }
+    }
+
+    fun searchTripByUUID(uuid: String, onConfirmTripInteract: OnConfrimTripInteract) {
+        database.collection("Trip")
+            .whereEqualTo("uuid", uuid)
+            .addSnapshotListener { querySnapshot, exception ->
+                if (exception != null){
+                    return@addSnapshotListener
+                }
+
+                for (dc in querySnapshot!!.documentChanges) {
+                    when(dc.type){
+                        DocumentChange.Type.MODIFIED -> onConfirmTripInteract.onUpdatedTrip(dc.document.toObject(Trip::class.java))
+                        DocumentChange.Type.REMOVED ->{
+                            onConfirmTripInteract.onDeletedTrip();
+                            return@addSnapshotListener
+                        }
+                        DocumentChange.Type.ADDED -> onConfirmTripInteract.onUpdatedTrip(dc.document.toObject(Trip::class.java))
+                    }
+                }
+
+            }
+    }
+
+    fun deleteTrip(trip: Trip, confirmTripPresenter: OnConfrimTripInteract) {
+        database.collection("Trip").document(trip.uuid).delete()
     }
 }
