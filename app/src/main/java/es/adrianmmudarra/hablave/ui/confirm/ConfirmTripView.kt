@@ -111,6 +111,13 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             }else{
                 btnConfirmTripDelete.visibility = View.GONE
                 btnConfirmTripReserve.visibility = View.VISIBLE
+                if(trip.traveler1 == HablaveApplication.context.user?.uid || trip.traveler2 == HablaveApplication.context.user?.uid || trip.traveler3 == HablaveApplication.context.user?.uid){
+                    btnConfirmTripCancelReserve.visibility = View.VISIBLE
+                    btnConfirmTripReserve.visibility = View.GONE
+                }else{
+                    btnConfirmTripCancelReserve.visibility = View.GONE
+                    btnConfirmTripReserve.visibility = View.VISIBLE
+                }
             }
         }
     }
@@ -132,7 +139,27 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
     }
 
     override fun onSuccessReserve() {
-        TODO("Not yet implemented")
+        MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+            .setTitle(getString(R.string.trip_reserved))
+            .setMessage(getString(R.string.mensaje_plaza_reservada))
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    override fun onErrorReserve() {
+
+    }
+
+    override fun onTripCompleted() {
+        MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+            .setTitle(getString(R.string.trip_completed))
+            .setMessage(getString(R.string.mensaje_plaza_completed))
+            .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
+                activity?.onDeletedTrip()
+                dialogInterface.dismiss()
+            }
+            .setIcon(R.drawable.ic_warning_24dp)
+            .show()
     }
 
     override fun setPresenter(presenter: ConfirmTripContract.Presenter) {

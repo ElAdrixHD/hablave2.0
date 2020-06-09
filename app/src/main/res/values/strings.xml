@@ -76,4 +76,9 @@
     <string name="mensaje_viaje_eliminado">Este viaje ya no está disponible. Usted va a volver a la pantalla principal.</string>
     <string name="borrar_viaje">Borrar Viaje</string>
     <string name="pregunta_viaje_eliminar">¿Estas seguro que quieres borrar este viaje?</string>
+    <string name="cancelar_reserva">Cancelar Reserva</string>
+    <string name="trip_reserved">Plaza reservada</string>
+    <string name="mensaje_plaza_reservada">Enorabuena. Ya tienes una plaza ene ste viaje. No se te olvide hablar con el creador del viaje para llegar a un acuerdo sobre el viaje.</string>
+    <string name="trip_completed">Viaje completo</string>
+    <string name="mensaje_plaza_completed">Lo sentimos pero este viaje acaba de llenarse y no quedan plazas libres. Sentimos mucho las molestias.</string>
 </resources>

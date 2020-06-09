@@ -65,8 +65,9 @@
             android:layout_marginTop="8dp"
             android:text="Mate1"
             android:textSize="@dimen/H6"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/tvConfirmTripMate2Name"
@@ -76,6 +77,7 @@
             android:layout_marginTop="8dp"
             android:text="Mate2"
             android:textSize="@dimen/H6"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate1Name" />
 
@@ -87,6 +89,7 @@
             android:layout_marginTop="8dp"
             android:text="Mate3"
             android:textSize="@dimen/H6"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate2Name" />
 
@@ -369,9 +372,24 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/reservar"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bh_5" />
+
+        <Button
+            android:id="@+id/btnConfirmTripCancelReserve"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/cancelar_reserva"
+            android:visibility="gone"
+            android:backgroundTint="@color/error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripReserve" />
 
         <Button
             android:id="@+id/btnConfirmTripCancel"
@@ -384,7 +402,7 @@
             android:text="@string/cancelar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripReserve" />
+            app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripCancelReserve" />
 
         <Button
             android:id="@+id/btnConfirmTripDelete"

@@ -1,9 +1,13 @@
 package es.adrianmmudarra.hablave.ui.confirm
 
+import com.google.gson.JsonObject
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseTripRepository
+import es.adrianmmudarra.hablave.data.repository.FirebaseFunctionTrips
+import org.json.JSONObject
 
-class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContract.Presenter, FirebaseDatabaseTripRepository.OnConfrimTripInteract{
+class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContract.Presenter, FirebaseDatabaseTripRepository.OnConfrimTripInteract, FirebaseFunctionTrips.OnConfirmTripInteract{
 
     override fun loadData(trip: Trip) {
         FirebaseDatabaseTripRepository.getInstance().searchTripByUUID(trip.uuid,this)
@@ -14,7 +18,12 @@ class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContr
     }
 
     override fun reserveTrip(trip: Trip) {
-        TODO("Not yet implemented")
+        val jsonObject = JsonObject().apply {
+            addProperty("uidTrip", trip.uuid)
+            addProperty("idUser", HablaveApplication.context.user?.uid!!)
+            addProperty("nameUser", HablaveApplication.context.user?.nameAndSurname!!)
+        }
+        FirebaseFunctionTrips.getInstance().reserveTrip(jsonObject,this)
     }
 
     override fun onUpdatedTrip(trip: Trip) {
@@ -23,5 +32,17 @@ class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContr
 
     override fun onDeletedTrip() {
         view.deletedTrip()
+    }
+
+    override fun onSuccessReserve() {
+        view.onSuccessReserve()
+    }
+
+    override fun onErrorReserve() {
+        view.onErrorReserve()
+    }
+
+    override fun onTripCompleted() {
+        view.onTripCompleted()
     }
 }

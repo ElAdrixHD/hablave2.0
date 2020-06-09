@@ -10,6 +10,8 @@ class ConfirmTripContract {
         fun updatedTrip(trip: Trip)
         fun deletedTrip()
         fun onSuccessReserve()
+        fun onErrorReserve()
+        fun onTripCompleted()
     }
 
     interface Presenter{
