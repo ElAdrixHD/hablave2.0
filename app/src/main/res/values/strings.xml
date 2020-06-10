@@ -87,4 +87,5 @@
     <string name="mensaje_plaza_libre">Su plaza acaba de ser desasignada por lo que ya no esta en el viaje</string>
     <string name="escribe_el_mensaje">Escribe el mensaje</string>
     <string name="enviar">Enviar</string>
+    <string name="abrir_chat">Abrir chat</string>
 </resources>

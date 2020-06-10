@@ -417,6 +417,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripCancel" />
 
+        <Button
+            android:id="@+id/btnConfirmTripJoinChat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/abrir_chat"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnConfirmTripDelete" />
+
         <ImageView
             android:id="@+id/ivConfirmTripHasTicket"
             android:layout_width="wrap_content"

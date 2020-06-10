@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Message
-import es.adrianmmudarra.hablave.utils.toFormatDate
+import es.adrianmmudarra.hablave.utils.*
 
 class MessageListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -36,11 +36,11 @@ class MessageListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         when(holder.itemViewType){
             VIEW_TYPE_MESSAGE_SENT-> {
                 (holder as SentMessageHolder).messageText.text = list[position].message
-                holder.timeText.text = list[position].createdAt.toFormatDate()
+                holder.timeText.text = list[position].createdAt.toFormatHour()
             }
             VIEW_TYPE_MESSAGE_RECEIVED -> {
                 (holder as ReciviedMessageHolder).messageText.text = list[position].message
-                holder.timeText.text = list[position].createdAt.toFormatDate()
+                holder.timeText.text = list[position].createdAt.toFormatHour()
                 holder.nameText.text = list[position].user
             }
         }
@@ -53,6 +53,21 @@ class MessageListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }else{
             VIEW_TYPE_MESSAGE_RECEIVED
         }
+    }
+
+    fun addAll(list: ArrayList<Message>){
+        this.list.addAll(list)
+        this.notifyDataSetChanged()
+    }
+
+    fun add(message: Message){
+        this.list.add(message)
+        this.notifyDataSetChanged()
+    }
+
+    fun clear(){
+        this.list.clear()
+        this.notifyDataSetChanged()
     }
 
     class SentMessageHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

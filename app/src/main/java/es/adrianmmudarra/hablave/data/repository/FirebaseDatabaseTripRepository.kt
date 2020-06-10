@@ -2,6 +2,7 @@ package es.adrianmmudarra.hablave.data.repository
 
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import es.adrianmmudarra.hablave.data.model.Station
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
 import es.adrianmmudarra.hablave.utils.dateToLong
@@ -94,6 +95,12 @@ class FirebaseDatabaseTripRepository {
     }
 
     fun deleteTrip(trip: Trip, confirmTripPresenter: OnConfrimTripInteract) {
+        database.collection("Trip").document(trip.uuid).collection("Messages").get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                document.reference.delete()
+            }
+        }
         database.collection("Trip").document(trip.uuid).delete()
+
     }
 }

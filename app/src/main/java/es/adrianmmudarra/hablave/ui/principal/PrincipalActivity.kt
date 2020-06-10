@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Trip
+import es.adrianmmudarra.hablave.ui.chat.ChatTripPresenter
+import es.adrianmmudarra.hablave.ui.chat.ChatTripView
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripContract
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripView
@@ -27,7 +29,7 @@ import es.adrianmmudarra.hablave.ui.searchList.SearchTripListView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface, ChatTripView.OnChatTripInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -46,6 +48,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     private var confirmTripView: ConfirmTripView? = null
     private var confirmTripPresenter: ConfirmTripPresenter? = null
+
+    private var chatTripView: ChatTripView? = null
+    private var chatTripPresenter: ChatTripPresenter? = null
 
     private var doubleBack = false
 
@@ -199,6 +204,22 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
     override fun onDeletedTrip() {
         showPrincipal()
+    }
+
+    override fun onJoinChat(uid: String) {
+        chatTripView = supportFragmentManager.findFragmentByTag(ChatTripView.TAG) as ChatTripView?
+        if (chatTripView == null){
+            chatTripView = ChatTripView.newInstance(Bundle().apply { putString("UID", uid) })
+        }
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, chatTripView!!,ChatTripView.TAG)
+            .addToBackStack(null)
+            .commit()
+
+        chatTripPresenter = ChatTripPresenter(chatTripView!!)
+        chatTripView?.setPresenter(chatTripPresenter!!)
     }
 
     override fun onSearchTrip(bundle: Bundle) {

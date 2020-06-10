@@ -90,11 +90,16 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                 .show()
         }
 
+        btnConfirmTripJoinChat.setOnClickListener {
+            activity?.onJoinChat(arguments?.getParcelable<Trip>(Trip.TAG)?.uuid!!)
+        }
+
     }
 
     interface OnConfirmTripInterface{
         fun onCancel()
         fun onDeletedTrip()
+        fun onJoinChat(uid:String)
     }
 
     companion object {
@@ -131,15 +136,19 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             if (trip.owner == HablaveApplication.context.user?.uid){
                 btnConfirmTripDelete.visibility = View.VISIBLE
                 btnConfirmTripReserve.visibility = View.GONE
+                btnConfirmTripJoinChat.visibility = View.VISIBLE
             }else{
                 btnConfirmTripDelete.visibility = View.GONE
                 btnConfirmTripReserve.visibility = View.VISIBLE
+                btnConfirmTripJoinChat.visibility = View.GONE
                 if(trip.traveler1 == HablaveApplication.context.user?.uid || trip.traveler2 == HablaveApplication.context.user?.uid || trip.traveler3 == HablaveApplication.context.user?.uid){
                     btnConfirmTripCancelReserve.visibility = View.VISIBLE
                     btnConfirmTripReserve.visibility = View.GONE
+                    btnConfirmTripJoinChat.visibility = View.VISIBLE
                 }else{
                     btnConfirmTripCancelReserve.visibility = View.GONE
                     btnConfirmTripReserve.visibility = View.VISIBLE
+                    btnConfirmTripJoinChat.visibility = View.GONE
                 }
             }
         }
