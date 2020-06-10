@@ -26,6 +26,15 @@ class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContr
         FirebaseFunctionTrips.getInstance().reserveTrip(jsonObject,this)
     }
 
+    override fun cancelReserve(trip: Trip) {
+        val jsonObject = JsonObject().apply {
+            addProperty("uidTrip", trip.uuid)
+            addProperty("idUser", HablaveApplication.context.user?.uid!!)
+            addProperty("nameUser", HablaveApplication.context.user?.nameAndSurname!!)
+        }
+        FirebaseFunctionTrips.getInstance().cancelReserveTrip(jsonObject,this)
+    }
+
     override fun onUpdatedTrip(trip: Trip) {
         view.updatedTrip(trip)
     }
@@ -44,5 +53,13 @@ class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContr
 
     override fun onTripCompleted() {
         view.onTripCompleted()
+    }
+
+    override fun onSuccessCancelReserve() {
+        view.onSuccessCancelReserve()
+    }
+
+    override fun onErrorCancelReserve() {
+        view.onErrorCancelReserve()
     }
 }

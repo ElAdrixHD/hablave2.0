@@ -81,4 +81,10 @@
     <string name="mensaje_plaza_reservada">Enorabuena. Ya tienes una plaza ene ste viaje. No se te olvide hablar con el creador del viaje para llegar a un acuerdo sobre el viaje.</string>
     <string name="trip_completed">Viaje completo</string>
     <string name="mensaje_plaza_completed">Lo sentimos pero este viaje acaba de llenarse y no quedan plazas libres. Sentimos mucho las molestias.</string>
+    <string name="borrar_reserva">Cancelar reserva</string>
+    <string name="pregunta_reserva_eliminar">¿Estas seguro de cancelar la reserva que tienes para este viaje?</string>
+    <string name="trip_plaza_libre">Cancelacion Completada</string>
+    <string name="mensaje_plaza_libre">Su plaza acaba de ser desasignada por lo que ya no esta en el viaje</string>
+    <string name="escribe_el_mensaje">Escribe el mensaje</string>
+    <string name="enviar">Enviar</string>
 </resources>

@@ -12,6 +12,9 @@ class FirebaseFunctionTrips {
         fun onSuccessReserve()
         fun onErrorReserve()
         fun onTripCompleted()
+
+        fun onSuccessCancelReserve()
+        fun onErrorCancelReserve()
     }
 
     companion object {
@@ -28,9 +31,9 @@ class FirebaseFunctionTrips {
     private val service = RetrofitClient.getInstance()
 
     fun reserveTrip(jsonObject: JsonObject, listener: OnConfirmTripInteract){
-        val call: Call<String> = service.addReserve(jsonObject)
-        call.enqueue(object : Callback<String?> {
-            override fun onResponse(callback: Call<String?>?, response: Response<String?>) {
+        val call: Call<Void> = service.addReserve(jsonObject)
+        call.enqueue(object : Callback<Void?> {
+            override fun onResponse(callback: Call<Void?>?, response: Response<Void?>) {
                 if (response.code() == 202) {
                     listener.onSuccessReserve()
                 }else{
@@ -43,8 +46,26 @@ class FirebaseFunctionTrips {
                 }
             }
 
-            override fun onFailure(call: Call<String?>, t: Throwable) {
+            override fun onFailure(call: Call<Void?>, t: Throwable) {
                 listener.onErrorReserve()
+            }
+        })
+    }
+
+    fun cancelReserveTrip(jsonObject: JsonObject, listener: OnConfirmTripInteract){
+        val call: Call<Void> = service.deleteReserve(jsonObject)
+        call.enqueue(object : Callback<Void?> {
+            override fun onResponse(callback: Call<Void?>?, response: Response<Void?>) {
+                if (response.code() == 202) {
+                    listener.onSuccessCancelReserve()
+                }else{
+                    listener.onErrorCancelReserve()
+
+                }
+            }
+
+            override fun onFailure(call: Call<Void?>, t: Throwable) {
+                listener.onErrorCancelReserve()
             }
         })
     }

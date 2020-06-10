@@ -12,11 +12,14 @@ class ConfirmTripContract {
         fun onSuccessReserve()
         fun onErrorReserve()
         fun onTripCompleted()
+        fun onSuccessCancelReserve()
+        fun onErrorCancelReserve()
     }
 
     interface Presenter{
         fun loadData(trip: Trip)
         fun deleteTrip(trip: Trip)
         fun reserveTrip(trip: Trip)
+        fun cancelReserve(trip: Trip)
     }
 }

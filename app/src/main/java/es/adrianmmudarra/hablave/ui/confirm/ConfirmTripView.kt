@@ -65,12 +65,29 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                     presenter?.deleteTrip(arguments?.getParcelable(Trip.TAG)!!)
                     activity?.onDeletedTrip()
                 }
+                .setNegativeButton(android.R.string.no){ d: DialogInterface, _: Int ->
+                    d.dismiss()
+                }
                 .setIcon(R.drawable.ic_warning_24dp)
                 .show()
         }
 
         btnConfirmTripReserve.setOnClickListener {
             presenter?.reserveTrip(arguments?.getParcelable(Trip.TAG)!!)
+        }
+
+        btnConfirmTripCancelReserve.setOnClickListener {
+            MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                .setTitle(getString(R.string.borrar_reserva))
+                .setMessage(getString(R.string.pregunta_reserva_eliminar))
+                .setPositiveButton(android.R.string.ok){ _: DialogInterface, _: Int ->
+                    presenter?.cancelReserve(arguments?.getParcelable(Trip.TAG)!!)
+                }
+                .setNegativeButton(android.R.string.no){ d: DialogInterface, _: Int ->
+                    d.dismiss()
+                }
+                .setIcon(R.drawable.ic_warning_24dp)
+                .show()
         }
 
     }
@@ -104,6 +121,12 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             tvConfirmTripPrice2Person.text = (trip.price/2).toString()
             tvConfirmTripPrice3Person.text = (trip.price/3).toString()
             tvConfirmTripPrice4Person.text = (trip.price/4).toString()
+
+            if (trip.hasTicket){
+                ivConfirmTripHasTicket.visibility = View.VISIBLE
+            }else{
+                ivConfirmTripHasTicket.visibility = View.GONE
+            }
 
             if (trip.owner == HablaveApplication.context.user?.uid){
                 btnConfirmTripDelete.visibility = View.VISIBLE
@@ -160,6 +183,22 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             }
             .setIcon(R.drawable.ic_warning_24dp)
             .show()
+    }
+
+    override fun onSuccessCancelReserve() {
+        MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+            .setTitle(getString(R.string.trip_plaza_libre))
+            .setMessage(getString(R.string.mensaje_plaza_libre))
+            .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
+                activity?.onDeletedTrip()
+                dialogInterface.dismiss()
+            }
+            .setIcon(R.drawable.ic_warning_24dp)
+            .show()
+    }
+
+    override fun onErrorCancelReserve() {
+
     }
 
     override fun setPresenter(presenter: ConfirmTripContract.Presenter) {
