@@ -137,6 +137,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                 btnConfirmTripDelete.visibility = View.VISIBLE
                 btnConfirmTripReserve.visibility = View.GONE
                 btnConfirmTripJoinChat.visibility = View.VISIBLE
+                btnConfirmTripDelete.isEnabled = !(trip.traveler1 != null|| trip.traveler2 != null || trip.traveler3 != null)
             }else{
                 btnConfirmTripDelete.visibility = View.GONE
                 btnConfirmTripReserve.visibility = View.VISIBLE

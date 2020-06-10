@@ -35,6 +35,7 @@ class ChatTripView : Fragment(), ChatTripContract.View {
 
     override fun onStart() {
         super.onStart()
+        adapter.clear()
         presenter?.loadMessages(arguments?.getString("UID")!!)
     }
 
@@ -87,7 +88,6 @@ class ChatTripView : Fragment(), ChatTripContract.View {
     }
 
     override fun noMessages() {
-        onSnakbarError("No hay mensajes")
     }
 
     override fun sendMessageSuccessful() {

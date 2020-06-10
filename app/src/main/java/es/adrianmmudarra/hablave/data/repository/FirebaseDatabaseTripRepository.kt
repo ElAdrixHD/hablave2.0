@@ -95,11 +95,11 @@ class FirebaseDatabaseTripRepository {
     }
 
     fun deleteTrip(trip: Trip, confirmTripPresenter: OnConfrimTripInteract) {
-        database.collection("Trip").document(trip.uuid).collection("Messages").get().addOnSuccessListener { documents ->
+        /*database.collection("Trip").document(trip.uuid).collection("Messages").get().addOnSuccessListener { documents ->
             for (document in documents) {
                 document.reference.delete()
             }
-        }
+        }*/
         database.collection("Trip").document(trip.uuid).delete()
 
     }

@@ -8,8 +8,10 @@ import java.util.*
 class ChatTripPresenter(val view: ChatTripContract.View): ChatTripContract.Presenter, FirebaseDatabaseTripChatRepository.TripChatInteract {
 
     override fun sendMessage(message: String, uid: String) {
-        val mes = Message().apply { user = HablaveApplication.context.user?.nameAndSurname!!; idTrip = uid; this.message = message; createdAt = Calendar.getInstance().timeInMillis}
-        FirebaseDatabaseTripChatRepository.getInstance().sendMessagesByTrip(uid,mes, this)
+        if (message.trim().isNotEmpty()){
+            val mes = Message().apply { user = HablaveApplication.context.user?.nameAndSurname!!; idTrip = uid; this.message = message; createdAt = Calendar.getInstance().timeInMillis}
+            FirebaseDatabaseTripChatRepository.getInstance().sendMessagesByTrip(uid,mes, this)
+        }
     }
 
     override fun loadMessages(uid: String) {
