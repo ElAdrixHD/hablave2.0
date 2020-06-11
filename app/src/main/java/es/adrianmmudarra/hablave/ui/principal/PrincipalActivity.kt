@@ -13,6 +13,7 @@ import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.chat.ChatTripPresenter
 import es.adrianmmudarra.hablave.ui.chat.ChatTripView
+import es.adrianmmudarra.hablave.ui.chatlist.ChatListView
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripContract
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripView
@@ -29,7 +30,7 @@ import es.adrianmmudarra.hablave.ui.searchList.SearchTripListView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface, ChatTripView.OnChatTripInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface, ChatTripView.OnChatTripInterface, ChatListView.ChatListInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -278,5 +279,15 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
 
         confirmTripPresenter = ConfirmTripPresenter(confirmTripView!!)
         confirmTripView?.setPresenter(confirmTripPresenter!!)
+    }
+
+    override fun onResumeChatList() {
+        if(bottom_nav_menu.selectedItemId != R.id.nav_chat){
+            bottom_nav_menu.selectedItemId = R.id.nav_chat
+        }
+    }
+
+    override fun onClickTrip(trip: Trip) {
+        showConfirmTrip(trip)
     }
 }

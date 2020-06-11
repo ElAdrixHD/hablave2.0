@@ -3,6 +3,7 @@ package es.adrianmmudarra.hablave.data.model
 import android.os.Parcel
 import android.os.Parcelable
 import java.util.*
+import kotlin.Comparator
 
 class Trip(): Parcelable{
     var uuid: String = ""
@@ -90,5 +91,17 @@ class Trip(): Parcelable{
         }
     }
 
+    class OrderByPrice: Comparator<Trip>{
+        override fun compare(o1: Trip?, o2: Trip?): Int {
+            return o1?.price?.compareTo(o2?.price!!)!!
+        }
 
+    }
+
+    class OrderByDate: Comparator<Trip>{
+        override fun compare(o1: Trip?, o2: Trip?): Int {
+            return o1?.dateTrip?.compareTo(o2?.dateTrip!!)!!
+        }
+
+    }
 }

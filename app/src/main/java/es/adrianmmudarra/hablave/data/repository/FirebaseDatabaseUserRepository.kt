@@ -2,6 +2,7 @@ package es.adrianmmudarra.hablave.data.repository
 
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.data.model.User
 
 class FirebaseDatabaseUserRepository {
@@ -112,6 +113,12 @@ class FirebaseDatabaseUserRepository {
     ) {
         database.collection("User").document(user).update("nameAndSurname",name,"birthday",date,"gender",gender).addOnSuccessListener {
             profileDataPresenter.onSuccessUpdateDatabaseData()
+        }
+
+        database.collection("User").document(user).get().addOnSuccessListener {
+            if (it.exists()){
+                HablaveApplication.context.user = it.toObject(User::class.java)
+            }
         }
     }
 }
