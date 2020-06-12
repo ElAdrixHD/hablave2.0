@@ -83,6 +83,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                 .setMessage(getString(R.string.pregunta_reserva_eliminar))
                 .setPositiveButton(android.R.string.ok){ _: DialogInterface, _: Int ->
                     presenter?.cancelReserve(arguments?.getParcelable(Trip.TAG)!!)
+                    it.isEnabled = false
                 }
                 .setNegativeButton(android.R.string.no){ d: DialogInterface, _: Int ->
                     d.dismiss()
@@ -209,6 +210,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             }
             .setIcon(R.drawable.ic_warning_24dp)
             .show()
+        btnConfirmTripCancelReserve.isEnabled = true
     }
 
     override fun onErrorCancelReserve() {

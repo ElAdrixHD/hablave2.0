@@ -2,16 +2,13 @@ package es.adrianmmudarra.hablave.ui.searchList
 
 import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.adapter.TripListAdapter
-import es.adrianmmudarra.hablave.data.model.Station
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
 import kotlinx.android.synthetic.main.fragment_search_trip_list_view.*
@@ -25,6 +22,7 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        setHasOptionsMenu(true)
     }
 
     override fun onStart() {
@@ -56,6 +54,18 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
         adapter = TripListAdapter(this)
         recyclerSearchTripList.adapter = adapter
         recyclerSearchTripList.layoutManager = LinearLayoutManager(context)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.trips_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.sortPriceAsc->adapter?.sortPriceAsc()
+            R.id.sortPriceDesc->adapter?.sortPriceDesc()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     interface OnSearchTripListViewInterface{

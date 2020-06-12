@@ -9,7 +9,7 @@ class ChatTripPresenter(val view: ChatTripContract.View): ChatTripContract.Prese
 
     override fun sendMessage(message: String, uid: String) {
         if (message.trim().isNotEmpty()){
-            val mes = Message().apply { user = HablaveApplication.context.user?.nameAndSurname!!; idTrip = uid; this.message = message; createdAt = Calendar.getInstance().timeInMillis}
+            val mes = Message().apply { user = HablaveApplication.context.user?.nameAndSurname!!; idTrip = uid; this.message = message.trim(); createdAt = Calendar.getInstance().timeInMillis}
             FirebaseDatabaseTripChatRepository.getInstance().sendMessagesByTrip(uid,mes, this)
         }
     }

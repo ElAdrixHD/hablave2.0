@@ -91,6 +91,16 @@ class TripListAdapter(val listener: OnTripListAdapterInterface): RecyclerView.Ad
         }
     }
 
+    fun sortPriceDesc() {
+        this.listTrip.sortByDescending { x-> x.price }
+        this.notifyDataSetChanged()
+    }
+
+    fun sortPriceAsc() {
+        this.listTrip.sortBy { x->x.price }
+        this.notifyDataSetChanged()
+    }
+
     interface OnTripListAdapterInterface {
         fun onClick(trip: Trip)
         fun onLongClick(trip: Trip)
