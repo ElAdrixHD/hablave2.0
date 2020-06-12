@@ -88,4 +88,7 @@
     <string name="escribe_el_mensaje">Escribe el mensaje</string>
     <string name="enviar">Enviar</string>
     <string name="abrir_chat">Abrir chat</string>
+    <string name="no_tienes_viaje_aun">No tienes ningun viaje aún</string>
+    <string name="cambiar_contrase_a">Cambiar Contraseña</string>
+    <string name="cambiar_contrasenia_mensaje">¿Desea cambiar de contraseña?. Se le enviara un correo electronico para reestablecer su contraseña.</string>
 </resources>

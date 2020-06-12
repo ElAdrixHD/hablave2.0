@@ -48,6 +48,12 @@ class ChatListAdapter(private val listener: CharListInterface): RecyclerView.Ada
         this.notifyDataSetChanged()
     }
 
+    fun addAll(list: java.util.ArrayList<Trip>) {
+        this.list.addAll(list)
+        this.list.sortBy { via -> via.dateTrip }
+        this.notifyDataSetChanged()
+    }
+
     interface CharListInterface{
         fun onClickChat(trip: Trip)
     }

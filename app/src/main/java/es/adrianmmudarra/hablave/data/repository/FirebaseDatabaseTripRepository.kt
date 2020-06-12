@@ -6,6 +6,8 @@ import es.adrianmmudarra.hablave.data.model.Station
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
 import es.adrianmmudarra.hablave.utils.dateToLong
+import es.adrianmmudarra.hablave.utils.toFormatDate
+import java.util.*
 
 class FirebaseDatabaseTripRepository {
 
@@ -28,6 +30,12 @@ class FirebaseDatabaseTripRepository {
         fun onUpdatedTrip(trip: Trip)
         fun onDeletedTrip()
     }
+
+    interface OnChatListInteract{
+        fun onSuccessAdd(trip: Trip)
+        fun noData()
+    }
+
     companion object{
         private var INSTANCE: FirebaseDatabaseTripRepository? = null
 
@@ -102,5 +110,33 @@ class FirebaseDatabaseTripRepository {
         }*/
         database.collection("Trip").document(trip.uuid).delete()
 
+    }
+
+    fun getFutureTrips(
+        uid: String,
+        chatListPresenter: OnChatListInteract
+    ) {
+        database.collection("Trip").whereEqualTo("owner", uid).whereGreaterThanOrEqualTo("dateTrip", Calendar.getInstance().timeInMillis).get().addOnSuccessListener { documents->
+            for (document in documents){
+                chatListPresenter.onSuccessAdd(document.toObject(Trip::class.java))
+            }
+        }.addOnFailureListener {
+            it.message
+        }
+        database.collection("Trip").whereEqualTo("traveler1", uid).whereGreaterThanOrEqualTo("dateTrip", Calendar.getInstance().timeInMillis).get().addOnSuccessListener { documents->
+            for (document in documents){
+                chatListPresenter.onSuccessAdd(document.toObject(Trip::class.java))
+            }
+        }
+        database.collection("Trip").whereEqualTo("traveler2", uid).whereGreaterThanOrEqualTo("dateTrip", Calendar.getInstance().timeInMillis).get().addOnSuccessListener { documents->
+            for (document in documents){
+                chatListPresenter.onSuccessAdd(document.toObject(Trip::class.java))
+            }
+        }
+        database.collection("Trip").whereEqualTo("traveler3", uid).whereGreaterThanOrEqualTo("dateTrip", Calendar.getInstance().timeInMillis).get().addOnSuccessListener { documents->
+            for (document in documents){
+                chatListPresenter.onSuccessAdd(document.toObject(Trip::class.java))
+            }
+        }
     }
 }

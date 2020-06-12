@@ -8,13 +8,12 @@ import android.os.Handler
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.snackbar.Snackbar
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.chat.ChatTripPresenter
 import es.adrianmmudarra.hablave.ui.chat.ChatTripView
+import es.adrianmmudarra.hablave.ui.chatlist.ChatListPresenter
 import es.adrianmmudarra.hablave.ui.chatlist.ChatListView
-import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripContract
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripPresenter
 import es.adrianmmudarra.hablave.ui.confirm.ConfirmTripView
 import es.adrianmmudarra.hablave.ui.create.CreateTripPresenter
@@ -22,7 +21,6 @@ import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
 import es.adrianmmudarra.hablave.ui.profile.ProfileView
-import es.adrianmmudarra.hablave.ui.search.SearchTripContract
 import es.adrianmmudarra.hablave.ui.search.SearchTripPresenter
 import es.adrianmmudarra.hablave.ui.search.SearchTripView
 import es.adrianmmudarra.hablave.ui.searchList.SearchListPresenter
@@ -53,6 +51,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     private var chatTripView: ChatTripView? = null
     private var chatTripPresenter: ChatTripPresenter? = null
 
+    private var chatTripListView: ChatListView? = null
+    private var chatTripListPresenter: ChatListPresenter? = null
+
     private var doubleBack = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +81,9 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
                     if (bottom_nav_menu.selectedItemId != R.id.nav_create)
                         showCreate()
                 }
-                R.id.nav_chat -> showChats()
+                R.id.nav_chat ->
+                    if (bottom_nav_menu.selectedItemId != R.id.nav_chat)
+                        showChats()
                 R.id.nav_profile -> {
                     if (bottom_nav_menu.selectedItemId != R.id.nav_profile)
                         showProfile()
@@ -108,7 +111,20 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     }
 
     private fun showChats() {
-        Snackbar.make(mainCoordinator, "Chats", Snackbar.LENGTH_SHORT).show()
+        chatTripListView = supportFragmentManager.findFragmentByTag(ChatListView.TAG) as ChatListView?
+        if (chatTripListView == null){
+            chatTripListView = ChatListView.newInstance(null)
+        }
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.contenido, chatTripListView!!, ChatListView.TAG)
+            .addToBackStack(null)
+            .commit()
+
+        chatTripListPresenter = ChatListPresenter(chatTripListView!!)
+        chatTripListView?.setPresenter(chatTripListPresenter!!)
     }
 
     private fun showCreate() {

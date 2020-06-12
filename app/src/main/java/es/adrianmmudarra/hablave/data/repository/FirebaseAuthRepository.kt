@@ -112,4 +112,8 @@ class FirebaseAuthRepository {
         this.auth.signOut()
         HablaveApplication.context.user = null
     }
+
+    fun sendPasswordReset() {
+        this.auth.sendPasswordResetEmail(getCurrentUser()?.email!!)
+    }
 }

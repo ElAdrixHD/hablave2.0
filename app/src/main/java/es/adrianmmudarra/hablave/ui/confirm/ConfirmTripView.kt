@@ -74,6 +74,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
 
         btnConfirmTripReserve.setOnClickListener {
             presenter?.reserveTrip(arguments?.getParcelable(Trip.TAG)!!)
+            it.isEnabled = false
         }
 
         btnConfirmTripCancelReserve.setOnClickListener {
@@ -177,6 +178,8 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             .setMessage(getString(R.string.mensaje_plaza_reservada))
             .setPositiveButton(android.R.string.ok, null)
             .show()
+
+        btnConfirmTripReserve.isEnabled = true
     }
 
     override fun onErrorReserve() {
@@ -193,6 +196,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             }
             .setIcon(R.drawable.ic_warning_24dp)
             .show()
+        btnConfirmTripReserve.isEnabled = true
     }
 
     override fun onSuccessCancelReserve() {

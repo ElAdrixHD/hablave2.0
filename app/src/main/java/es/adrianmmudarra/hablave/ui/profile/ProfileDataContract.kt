@@ -26,5 +26,6 @@ class ProfileDataContract {
         fun loadData()
         fun logOut()
         fun updateProfile(name: String, date:String, gender: String)
+        fun changePassword()
     }
 }

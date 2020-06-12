@@ -2,15 +2,15 @@ package es.adrianmmudarra.hablave.ui.profile
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.opengl.Visibility
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 
@@ -30,6 +30,7 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        setHasOptionsMenu(true)
     }
 
     override fun onStart() {
@@ -80,6 +81,30 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
             presenter?.updateProfile(tiledProfileName.text.toString(), tiledProfileBirthday.text.toString(), tiledProfileGender.text.toString())
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.profile_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.changePasswordProfileMenu -> {
+                MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                    .setTitle(getString(R.string.cambiar_contrase_a))
+                    .setMessage(getString(R.string.cambiar_contrasenia_mensaje))
+                    .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
+                        presenter?.changePassword()
+                        presenter?.logOut()
+                        onProfileDataInterface?.onLogOut()
+                        dialogInterface.dismiss()
+                    }
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(R.drawable.ic_warning_24dp)
+                    .show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onAttach(context: Context) {

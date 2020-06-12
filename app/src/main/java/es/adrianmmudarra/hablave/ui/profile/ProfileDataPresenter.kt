@@ -23,6 +23,10 @@ class ProfileDataPresenter(val view: ProfileDataContract.View): ProfileDataContr
         }
     }
 
+    override fun changePassword() {
+        FirebaseAuthRepository.getInstance().sendPasswordReset()
+    }
+
     private fun checkGender(gender: String): Boolean {
         if (gender.isEmpty()){
             view.onGenderError(R.string.campo_gender_vacio)
