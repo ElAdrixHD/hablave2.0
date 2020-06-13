@@ -91,7 +91,9 @@ class ChatTripView : Fragment(), ChatTripContract.View {
     }
 
     override fun sendMessageSuccessful() {
-        edittext_chatbox.setText("")
+        if (this.isVisible){
+            edittext_chatbox.setText("")
+        }
     }
 
     override fun removedTrip() {
