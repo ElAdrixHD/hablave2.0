@@ -1,5 +1,6 @@
 package es.adrianmmudarra.hablave.ui.confirm
 
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonObject
 import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.data.model.Trip
@@ -23,7 +24,7 @@ class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContr
             addProperty("idUser", HablaveApplication.context.user?.uid!!)
             addProperty("nameUser", HablaveApplication.context.user?.nameAndSurname!!)
         }
-        FirebaseFunctionTrips.getInstance().reserveTrip(jsonObject,this)
+        FirebaseFunctionTrips.getInstance().reserveTrip(jsonObject,trip.uuid,this)
     }
 
     override fun cancelReserve(trip: Trip) {
@@ -32,7 +33,7 @@ class ConfirmTripPresenter(val view: ConfirmTripContract.View): ConfirmTripContr
             addProperty("idUser", HablaveApplication.context.user?.uid!!)
             addProperty("nameUser", HablaveApplication.context.user?.nameAndSurname!!)
         }
-        FirebaseFunctionTrips.getInstance().cancelReserveTrip(jsonObject,this)
+        FirebaseFunctionTrips.getInstance().cancelReserveTrip(jsonObject,trip.uuid,this)
     }
 
     override fun onUpdatedTrip(trip: Trip) {

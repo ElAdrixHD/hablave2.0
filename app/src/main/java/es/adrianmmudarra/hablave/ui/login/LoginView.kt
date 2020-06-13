@@ -42,9 +42,15 @@ class LoginView : Fragment(), LoginContract.View {
 
     override fun onStart() {
         super.onStart()
+        btnLoginConfirm.isEnabled = false
+        btnLoginGoogle.isEnabled = false
+        btnLoginRegister.isEnabled = false
         if (presenter?.checkUserLogged()!!){
             presenter?.getUser()
-            onLoginViewInteract?.onSuccessLogin()
+        }else{
+            btnLoginConfirm.isEnabled = true
+            btnLoginGoogle.isEnabled = true
+            btnLoginRegister.isEnabled = true
         }
     }
 
@@ -189,6 +195,10 @@ class LoginView : Fragment(), LoginContract.View {
 
     override fun needRegisterGoogle(user: User) {
         onLoginViewInteract?.onRegister(user)
+    }
+
+    override fun showPrincipal() {
+        onLoginViewInteract?.onSuccessLogin()
     }
 
     override fun setPresenter(presenter: LoginContract.Presenter) {

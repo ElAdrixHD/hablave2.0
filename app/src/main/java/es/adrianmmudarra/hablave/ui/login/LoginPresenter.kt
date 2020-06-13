@@ -101,6 +101,7 @@ class LoginPresenter(private val view: LoginContract.View): LoginContract.Presen
 
     override fun onSuccessGetUser(user: User?) {
         HablaveApplication.context.user = user
+        view.showPrincipal()
     }
 
     override fun onFailedLogin() {

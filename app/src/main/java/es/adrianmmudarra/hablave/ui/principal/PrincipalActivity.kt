@@ -20,6 +20,7 @@ import es.adrianmmudarra.hablave.ui.create.CreateTripPresenter
 import es.adrianmmudarra.hablave.ui.create.CreateTripView
 import es.adrianmmudarra.hablave.ui.login.LoginActivity
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
+import es.adrianmmudarra.hablave.ui.profile.ProfileHistoryView
 import es.adrianmmudarra.hablave.ui.profile.ProfileView
 import es.adrianmmudarra.hablave.ui.search.SearchTripPresenter
 import es.adrianmmudarra.hablave.ui.search.SearchTripView
@@ -28,7 +29,7 @@ import es.adrianmmudarra.hablave.ui.searchList.SearchTripListView
 import kotlinx.android.synthetic.main.layout_main.*
 import kotlinx.android.synthetic.main.layout_principal.*
 
-class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface, ChatTripView.OnChatTripInterface, ChatListView.ChatListInterface{
+class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInteract , ProfileDataView.OnProfileDataInterface, CreateTripView.OnCreateTripInterface, ProfileView.OnProfileViewInterface, SearchTripView.OnSearchTripInterface, SearchTripListView.OnSearchTripListViewInterface, ConfirmTripView.OnConfirmTripInterface, ChatTripView.OnChatTripInterface, ChatListView.ChatListInterface, ProfileHistoryView.OnProfileHistoryInterface{
 
     lateinit var mainCoordinator : CoordinatorLayout
         private set
@@ -304,6 +305,10 @@ class PrincipalActivity : AppCompatActivity(), PrincipalView.OnPrincipalViewInte
     }
 
     override fun onClickTrip(trip: Trip) {
+        showConfirmTrip(trip)
+    }
+
+    override fun onClickHistoryTrip(trip: Trip) {
         showConfirmTrip(trip)
     }
 }

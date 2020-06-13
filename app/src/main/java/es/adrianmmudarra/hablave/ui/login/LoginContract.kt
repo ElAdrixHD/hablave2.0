@@ -17,6 +17,7 @@ class LoginContract {
         fun onFailedLoginGoogle()
         fun onNotVerifiedEmail()
         fun needRegisterGoogle(user: User)
+        fun showPrincipal()
     }
 
     interface Presenter{

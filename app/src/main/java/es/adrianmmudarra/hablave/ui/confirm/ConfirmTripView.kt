@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +17,7 @@ import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
 import es.adrianmmudarra.hablave.utils.toFormatDate
 import kotlinx.android.synthetic.main.fragment_confirm_trip_view.*
+import java.util.*
 
 class ConfirmTripView : Fragment(), ConfirmTripContract.View{
 
@@ -153,6 +155,12 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                     btnConfirmTripReserve.visibility = View.VISIBLE
                     btnConfirmTripJoinChat.visibility = View.GONE
                 }
+            }
+
+            if (trip.dateTrip < Calendar.getInstance().time.toFormatDate()){
+                btnConfirmTripDelete.visibility = View.GONE
+                btnConfirmTripReserve.visibility = View.GONE
+                btnConfirmTripJoinChat.visibility = View.GONE
             }
         }
     }

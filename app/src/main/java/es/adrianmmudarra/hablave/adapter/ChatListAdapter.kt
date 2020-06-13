@@ -1,10 +1,13 @@
 package es.adrianmmudarra.hablave.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.utils.toFormatDate
@@ -17,6 +20,8 @@ class ChatListAdapter(private val listener: CharListInterface): RecyclerView.Ada
         val tvDate = itemView.findViewById<TextView>(R.id.tvDateChatList)
         val tvOrigin = itemView.findViewById<TextView>(R.id.tvStationOriginChatList)
         val tvDestiny = itemView.findViewById<TextView>(R.id.tvStationDestinyChatList)
+
+        val constraint = itemView.findViewById<ConstraintLayout>(R.id.clChatTripItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
@@ -35,11 +40,15 @@ class ChatListAdapter(private val listener: CharListInterface): RecyclerView.Ada
         holder.itemView.setOnClickListener {
             listener.onClickChat(list[position])
         }
+
+        if (list[position].owner != HablaveApplication.context.user?.uid){
+            holder.constraint.setBackgroundColor(Color.LTGRAY)
+        }
     }
 
     fun addTrip(trip: Trip){
         this.list.add(trip)
-        this.list.sortBy { via -> via.dateTrip }
+        this.list.sortWith(compareBy({it.dateTrip}, {it.price}))
         this.notifyDataSetChanged()
     }
 
@@ -50,7 +59,7 @@ class ChatListAdapter(private val listener: CharListInterface): RecyclerView.Ada
 
     fun addAll(list: java.util.ArrayList<Trip>) {
         this.list.addAll(list)
-        this.list.sortBy { via -> via.dateTrip }
+        this.list.sortWith(compareBy({it.dateTrip}, {it.price}))
         this.notifyDataSetChanged()
     }
 

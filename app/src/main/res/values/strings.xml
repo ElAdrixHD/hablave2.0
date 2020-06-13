@@ -91,4 +91,8 @@
     <string name="no_tienes_viaje_aun">No tienes ningun viaje aún</string>
     <string name="cambiar_contrase_a">Cambiar Contraseña</string>
     <string name="cambiar_contrasenia_mensaje">¿Desea cambiar de contraseña?. Se le enviara un correo electronico para reestablecer su contraseña.</string>
+    <string name="has_ticket">El dueño de este viaje tiene el billete comprado</string>
+    <string name="no_ticket">El dueño de este viaje NO tiene el billete comprado</string>
+    <string name="default_notification_channel_id">10015</string>
+    <string name="hablave">Hablave</string>
 </resources>

@@ -6,9 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.profile.ProfileHistoryView">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHistory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher_hablave_foreground" />
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/ivProfileHistoryNoData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/nodata"
+        android:visibility="gone" />
 </FrameLayout>

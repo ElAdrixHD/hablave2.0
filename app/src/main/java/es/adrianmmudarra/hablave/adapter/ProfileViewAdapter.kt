@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataPresenter
 import es.adrianmmudarra.hablave.ui.profile.ProfileDataView
+import es.adrianmmudarra.hablave.ui.profile.ProfileHistoryPresenter
 import es.adrianmmudarra.hablave.ui.profile.ProfileHistoryView
 
 class ProfileViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -19,7 +20,11 @@ class ProfileViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
                 val presenter = ProfileDataPresenter(tmp)
                 tmp.setPresenter(presenter)
             }
-            1-> tmp = ProfileHistoryView.newInstance(null)
+            1-> {
+                tmp = ProfileHistoryView.newInstance(null)
+                val presenter = ProfileHistoryPresenter(tmp)
+                tmp.setPresenter(presenter)
+            }
         }
         return tmp!!
     }

@@ -86,7 +86,11 @@ class SearchTripListView : Fragment(), TripListAdapter.OnTripListAdapterInterfac
     }
 
     override fun onLongClick(trip: Trip) {
-
+        if (trip.hasTicket){
+            onSnakbarError(R.string.has_ticket)
+        }else{
+            onSnakbarError(R.string.no_ticket)
+        }
     }
 
     override fun onSuccessTripList(list: ArrayList<Trip>) {
