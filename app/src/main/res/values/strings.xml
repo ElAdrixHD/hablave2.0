@@ -29,7 +29,7 @@
     <string name="no_existe_ese_correo">No existe una cuenta de usuario asiciado a este correo</string>
     <string name="masculino">Masculino</string>
     <string name="femenino">Femenino</string>
-    <string name="genero_binario">Binario</string>
+    <string name="genero_no_binario">No binario</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -52,6 +52,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/acompanantes"
+            android:textSize="@dimen/Body_2"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bh_1" />
@@ -64,7 +65,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Mate1"
-            android:textSize="@dimen/H6"
+            android:textSize="@dimen/Body_1"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -76,7 +77,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Mate2"
-            android:textSize="@dimen/H6"
+            android:textSize="@dimen/Body_1"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate1Name" />
@@ -88,7 +89,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Mate3"
-            android:textSize="@dimen/H6"
+            android:textSize="@dimen/Body_1"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripMate2Name" />
@@ -154,11 +155,10 @@
             android:id="@+id/tvConfirmTripCreator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:text="Creator"
-            android:textSize="@dimen/H6"
+            android:textSize="@dimen/Body_1"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/ivConfirmTripHasTicket"
+            app:layout_constraintEnd_toEndOf="@+id/ivConfirmTripHasTicket"
             app:layout_constraintTop_toTopOf="@+id/textView4" />
 
        <!-- <TextView
@@ -436,8 +436,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_baseline_bookmark"
-            app:layout_constraintBottom_toBottomOf="@+id/tvConfirmTripCreator"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvConfirmTripCreator" />
+            app:layout_constraintTop_toBottomOf="@+id/tvConfirmTripCreator" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

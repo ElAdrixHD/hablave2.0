@@ -41,8 +41,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a notification payload.
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
-            if(remoteMessage.data["user"] != HablaveApplication.context.user?.nameAndSurname)
+            if (remoteMessage.data["type"] == "updatedTrip"){
                 sendNotification(it.body!!)
+            }else{
+                if(remoteMessage.data["user"] != HablaveApplication.context.user?.nameAndSurname && remoteMessage.data["type"] == "newMesssage")
+                    sendNotification(it.body!!)
+            }
+
         }
 
         // Also if you intend on generating your own notifications as a result of a received FCM
@@ -102,11 +107,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(messageBody: String) {
-        val intent = Intent(this, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-            PendingIntent.FLAG_ONE_SHOT)
-
         val channelId = getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
@@ -115,7 +115,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
-            .setContentIntent(pendingIntent)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

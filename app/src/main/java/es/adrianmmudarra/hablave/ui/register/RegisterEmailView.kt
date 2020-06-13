@@ -97,9 +97,9 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
 
         btnRegisterConfirm.setOnClickListener {
             if (arguments != null){
-                presenter?.checkDataGoogle(tiledRegisterName.text.toString(),tiledRegisterBirthday.text.toString(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString(),user)
+                presenter?.checkDataGoogle(tiledRegisterName.text.toString().trim(),tiledRegisterBirthday.text.toString().trim(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString().trim(),user)
             }else{
-                presenter?.checkData(tiledRegisterName.text.toString(),tiledRegisterBirthday.text.toString(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString(), tiledRegisterPassword.text.toString())
+                presenter?.checkData(tiledRegisterName.text.toString().trim(),tiledRegisterBirthday.text.toString().trim(), tiledRegisterGender.text.toString(), tiledRegisterEmail.text.toString().trim(), tiledRegisterPassword.text.toString())
             }
         }
     }
