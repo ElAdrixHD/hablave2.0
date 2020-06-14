@@ -15,7 +15,9 @@ import com.google.android.material.textfield.TextInputEditText
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Station
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
+import es.adrianmmudarra.hablave.utils.dateToDate
 import kotlinx.android.synthetic.main.fragment_create_trip_view.*
+import kotlinx.android.synthetic.main.fragment_register_view.*
 import kotlinx.android.synthetic.main.fragment_search_trip_view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -123,16 +125,25 @@ class SearchTripView : Fragment(), SearchTripContract.View {
     }
 
     private fun clickDataPicker() {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        var c = Calendar.getInstance()
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
+
+        if (tiledSearchTripDate.text.toString().isNotEmpty()){
+            c = Calendar.getInstance().apply {
+                time = tiledSearchTripDate.text.toString().dateToDate()
+            }
+            year = c.get(Calendar.YEAR)
+            month = c.get(Calendar.MONTH)
+            day = c.get(Calendar.DAY_OF_MONTH)
+        }
 
         val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, myYear, monthOfYear, dayOfMonth ->
             tiledSearchTripDate.setText("$myYear-${String.format("%02d",monthOfYear+1)}-${String.format("%02d",dayOfMonth)}")
 
         }, year, month, day)
-        dpd.datePicker.minDate = c.add(Calendar.DAY_OF_MONTH,1).let { c.timeInMillis }
+        dpd.datePicker.minDate = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH,1) }.timeInMillis
         dpd.show()
     }
 

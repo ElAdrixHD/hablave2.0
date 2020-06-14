@@ -4,7 +4,7 @@
     <item
         android:id="@+id/nav_trip"
         android:icon="@drawable/ic_train_24dp"
-        android:title="@string/trip" />
+        android:title="@string/Principal" />
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_search_24dp"
@@ -16,7 +16,7 @@
     <item
         android:id="@+id/nav_chat"
         android:icon="@drawable/ic_chat_24dp"
-        android:title="@string/chats" />
+        android:title="@string/mis_viajes" />
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person_24dp"

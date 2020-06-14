@@ -12,7 +12,9 @@ class ProfileViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
         return 2
     }
 
+
     override fun createFragment(position: Int): Fragment {
+        saveState()
         var tmp: Fragment? = null
         when (position){
             0->{
@@ -28,4 +30,6 @@ class ProfileViewAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
         }
         return tmp!!
     }
+
+
 }

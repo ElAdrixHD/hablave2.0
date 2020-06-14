@@ -12,6 +12,10 @@ import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.utils.toFormatDate
 import kotlinx.android.synthetic.main.trip_list_item.view.*
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TripListAdapter(val listener: OnTripListAdapterInterface): RecyclerView.Adapter<TripListAdapter.VH>() {
     class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -39,7 +43,7 @@ class TripListAdapter(val listener: OnTripListAdapterInterface): RecyclerView.Ad
         holder.tvOrigin.text = listTrip[position].stationOrigin
         holder.tvDestiny.text = listTrip[position].stationDest
         holder.tvDate.text = listTrip[position].dateTrip.toFormatDate()
-        holder.tvPrice.text = "${listTrip[position].price} € "
+        holder.tvPrice.text = "${DecimalFormat("#.00").format(listTrip[position].price)} € "
         if (!listTrip[position].hasTicket){
             holder.hasTicket.visibility = View.INVISIBLE
         }else{

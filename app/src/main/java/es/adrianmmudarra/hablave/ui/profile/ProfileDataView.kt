@@ -16,7 +16,9 @@ import com.google.android.material.textfield.TextInputEditText
 
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Gender
+import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
+import es.adrianmmudarra.hablave.utils.dateToDate
 import kotlinx.android.synthetic.main.fragment_profile_data_view.*
 import kotlinx.android.synthetic.main.fragment_register_view.*
 import java.util.*
@@ -151,28 +153,29 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
     }
 
     override fun showLoading() {
-        progressBarProfile.visibility = View.VISIBLE
+        if (this.isVisible)
+            progressBarProfile.visibility = View.VISIBLE
     }
 
     override fun disableLoading() {
-        progressBarProfile.visibility = View.INVISIBLE
+        if (this.isVisible)
+            progressBarProfile.visibility = View.INVISIBLE
     }
 
     override fun onClearGender() {
         tilProfileGender.error = null
     }
 
-    override fun onSuccessGetDatabase(
-        date: String,
-        gender: String,
-        name: String,
-        email: String
+    override fun onSuccessGetDatabase(user: User
     ) {
-        tiledProfileName.setText(name)
-        tiledProfileEmail.setText(email)
-        tiledProfileGender.setText(gender)
-        tiledProfileBirthday.setText(date)
-        btnProfileSaveData.isEnabled = true
+        if (this.isVisible){
+            tiledProfileName.setText(user.nameAndSurname)
+            tiledProfileEmail.setText(user.email)
+            tiledProfileGender.setText(user.gender)
+            tiledProfileBirthday.setText(user.birthday)
+            btnProfileSaveData.isEnabled = true
+
+        }
     }
 
     override fun onSuccessUpdateDatabase() {
@@ -204,16 +207,25 @@ class ProfileDataView : Fragment(), ProfileDataContract.View {
     }
 
     private fun clickDataPicker() {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        var c = Calendar.getInstance()
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
+
+        if (tiledProfileBirthday.text.toString().isNotEmpty()){
+            c = Calendar.getInstance().apply {
+                time = tiledProfileBirthday.text.toString().dateToDate()
+            }
+            year = c.get(Calendar.YEAR)
+            month = c.get(Calendar.MONTH)
+            day = c.get(Calendar.DAY_OF_MONTH)
+        }
 
         val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, myYear, monthOfYear, dayOfMonth ->
             tiledProfileBirthday.setText("$myYear-${String.format("%02d",monthOfYear+1)}-${String.format("%02d",dayOfMonth)}")
 
         }, year, month, day)
-        dpd.datePicker.maxDate = c.timeInMillis
+        dpd.datePicker.maxDate = Calendar.getInstance().timeInMillis
         dpd.show()
     }
 }

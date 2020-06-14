@@ -1,5 +1,6 @@
 package es.adrianmmudarra.hablave.ui.profile
 
+import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.ui.base.BaseView
 
 class ProfileDataContract {
@@ -12,11 +13,7 @@ class ProfileDataContract {
         fun showLoading()
         fun disableLoading()
         fun onClearGender()
-        fun onSuccessGetDatabase(
-            date: String,
-            gender: String,
-            name: String,
-            email: String
+        fun onSuccessGetDatabase(user: User
         )
         fun onSuccessUpdateDatabase()
         fun onDateUnderAge(error: Int)

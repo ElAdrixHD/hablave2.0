@@ -19,12 +19,7 @@ class FirebaseDatabaseUserRepository {
     }
 
     interface ProfileDataInteract{
-        fun onSuccessGetDatabaseData(
-            gender: String,
-            birthday: String,
-            name: String,
-            email: String
-        )
+        fun onSuccessGetDatabaseData(user: User)
 
         fun onSuccessUpdateDatabaseData()
     }
@@ -84,10 +79,7 @@ class FirebaseDatabaseUserRepository {
         database.collection("User").document(uid).get().addOnSuccessListener {
             if (it.exists()){
                 profileDataPresenter.onSuccessGetDatabaseData(
-                    it.get("gender").toString(),
-                    it.get("birthday").toString(),
-                    it.get("nameAndSurname").toString(),
-                    it.get("email").toString()
+                    it.toObject(User::class.java)!!
                 )
             }
         }

@@ -1,6 +1,8 @@
 package es.adrianmmudarra.hablave.ui.profile
 
+import es.adrianmmudarra.hablave.HablaveApplication
 import es.adrianmmudarra.hablave.R
+import es.adrianmmudarra.hablave.data.model.User
 import es.adrianmmudarra.hablave.data.repository.FirebaseAuthRepository
 import es.adrianmmudarra.hablave.data.repository.FirebaseDatabaseUserRepository
 import es.adrianmmudarra.hablave.utils.getAge
@@ -58,13 +60,10 @@ class ProfileDataPresenter(val view: ProfileDataContract.View): ProfileDataContr
         return true
     }
 
-    override fun onSuccessGetDatabaseData(
-        gender: String,
-        birthday: String,
-        name: String,
-        email: String
+    override fun onSuccessGetDatabaseData(user: User
     ) {
-        view.onSuccessGetDatabase(birthday, gender,name,email)
+        view.onSuccessGetDatabase(user)
+        HablaveApplication.context.user = user
         view.disableLoading()
     }
 

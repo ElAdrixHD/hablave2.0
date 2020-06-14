@@ -42,6 +42,7 @@ class ProfileView : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         profile_view_pager.adapter = ProfileViewAdapter(this)
+        profile_view_pager.isSaveEnabled = false
         TabLayoutMediator(profile_tab_layout,profile_view_pager){ tab, position ->
             when (position) {
                 0 -> { tab.text = getString(R.string.profile)}
@@ -61,4 +62,6 @@ class ProfileView : Fragment() {
                 arguments = bundle
             }
     }
+
+
 }

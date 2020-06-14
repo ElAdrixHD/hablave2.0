@@ -52,7 +52,7 @@ class CreateTripPresenter(val view: CreateTripContract.View): CreateTripContract
             view.onErrorPriceTrip(R.string.emptyPrice)
             return false
         }
-        if (price.toDouble() <= 0){
+        if (price.toDouble() <= 10){
             view.onErrorPriceTrip(R.string.invalid_price_format)
             return false
         }

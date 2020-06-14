@@ -17,6 +17,7 @@ import es.adrianmmudarra.hablave.data.model.Trip
 import es.adrianmmudarra.hablave.ui.principal.PrincipalActivity
 import es.adrianmmudarra.hablave.utils.toFormatDate
 import kotlinx.android.synthetic.main.fragment_confirm_trip_view.*
+import java.text.DecimalFormat
 import java.util.*
 
 class ConfirmTripView : Fragment(), ConfirmTripContract.View{
@@ -143,10 +144,10 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
             tvConfirmTripProvinceDestination.text = trip.provinceDest
             tvConfirmTripOriginStation.text = trip.stationOrigin
             tvConfirmTripDestinationStation.text = trip.stationDest
-            tvConfirmTripPriceGeneral.text = "${trip.price} €"
-            tvConfirmTripPrice2Person.text = (trip.price/2).toString()
-            tvConfirmTripPrice3Person.text = (trip.price/3).toString()
-            tvConfirmTripPrice4Person.text = (trip.price/4).toString()
+            tvConfirmTripPriceGeneral.text = "${DecimalFormat("#.00").format(trip.price)} €"
+            tvConfirmTripPrice2Person.text = (DecimalFormat("#.00").format(trip.price/2)).toString()
+            tvConfirmTripPrice3Person.text = (DecimalFormat("#.00").format(trip.price/3)).toString()
+            tvConfirmTripPrice4Person.text = (DecimalFormat("#.00").format(trip.price/4)).toString()
 
             if (trip.hasTicket){
                 ivConfirmTripHasTicket.visibility = View.VISIBLE
