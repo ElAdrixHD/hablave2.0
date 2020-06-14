@@ -31,12 +31,14 @@ class ChatTripView : Fragment(), ChatTripContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        adapter.clear()
+        presenter?.loadMessages(arguments?.getString("UID")!!)
     }
 
     override fun onStart() {
         super.onStart()
-        adapter.clear()
-        presenter?.loadMessages(arguments?.getString("UID")!!)
+        //adapter.clear()
+        //presenter?.loadMessages(arguments?.getString("UID")!!)
     }
 
     override fun onAttach(context: Context) {

@@ -132,7 +132,7 @@
                 style="@style/ButtonOutlined"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
                 android:layout_weight="1"
                 android:text="@string/cancelar" />
 
@@ -150,7 +150,7 @@
                 android:id="@+id/btnRegisterConfirm"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
                 android:layout_weight="1"
                 android:text="@string/registrarse" />
         </LinearLayout>

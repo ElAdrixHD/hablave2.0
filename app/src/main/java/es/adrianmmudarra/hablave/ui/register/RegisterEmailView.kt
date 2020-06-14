@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseUser
 import es.adrianmmudarra.hablave.R
 import es.adrianmmudarra.hablave.data.model.Gender
 import es.adrianmmudarra.hablave.data.model.User
+import es.adrianmmudarra.hablave.utils.dateToDate
+import es.adrianmmudarra.hablave.utils.dateToLong
 import kotlinx.android.synthetic.main.fragment_register_view.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -212,16 +214,24 @@ class RegisterEmailView : Fragment(), RegisterContract.View {
     }
 
     private fun clickDataPicker() {
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
+        var c = Calendar.getInstance()
+        var year = c.get(Calendar.YEAR)
+        var month = c.get(Calendar.MONTH)
+        var day = c.get(Calendar.DAY_OF_MONTH)
 
+        if (tiledRegisterBirthday.text.toString().isNotEmpty()){
+            c = Calendar.getInstance().apply {
+                time = tiledRegisterBirthday.text.toString().dateToDate()
+            }
+            year = c.get(Calendar.YEAR)
+            month = c.get(Calendar.MONTH)
+            day = c.get(Calendar.DAY_OF_MONTH)
+        }
         val dpd = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, myYear, monthOfYear, dayOfMonth ->
             tiledRegisterBirthday.setText("$myYear-${String.format("%02d",monthOfYear+1)}-${String.format("%02d",dayOfMonth)}")
 
         }, year, month, day)
-        dpd.datePicker.maxDate = c.timeInMillis
+        dpd.datePicker.maxDate = Calendar.getInstance().timeInMillis
         dpd.show()
     }
 }

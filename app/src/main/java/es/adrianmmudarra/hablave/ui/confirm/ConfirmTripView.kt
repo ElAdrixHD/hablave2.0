@@ -24,6 +24,8 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
     private var presenter: ConfirmTripContract.Presenter? = null
     private var activity: OnConfirmTripInterface? = null
 
+    private var viaje: Trip? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -60,23 +62,35 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
         }
 
         btnConfirmTripDelete.setOnClickListener {
-            MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
-                .setTitle(getString(R.string.borrar_viaje))
-                .setMessage(getString(R.string.pregunta_viaje_eliminar))
-                .setPositiveButton(android.R.string.ok){ _: DialogInterface, _: Int ->
-                    presenter?.deleteTrip(arguments?.getParcelable(Trip.TAG)!!)
-                    activity?.onDeletedTrip()
+            if (viaje != null){
+                if (viaje?.traveler1 != null|| viaje?.traveler2 != null || viaje?.traveler3 != null){
+                    MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                        .setTitle(getString(R.string.error_borrar_viaje))
+                        .setMessage(getString(R.string.borrar_viaje_mensaje))
+                        .setPositiveButton(android.R.string.ok,null)
+                        .setIcon(R.drawable.ic_warning_24dp)
+                        .show()
+                }else{
+                    MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                        .setTitle(getString(R.string.borrar_viaje))
+                        .setMessage(getString(R.string.pregunta_viaje_eliminar))
+                        .setPositiveButton(android.R.string.ok){ _: DialogInterface, _: Int ->
+                            presenter?.deleteTrip(arguments?.getParcelable(Trip.TAG)!!)
+                            activity?.onDeletedTrip()
+                        }
+                        .setNegativeButton(android.R.string.no){ d: DialogInterface, _: Int ->
+                            d.dismiss()
+                        }
+                        .setIcon(R.drawable.ic_warning_24dp)
+                        .show()
                 }
-                .setNegativeButton(android.R.string.no){ d: DialogInterface, _: Int ->
-                    d.dismiss()
-                }
-                .setIcon(R.drawable.ic_warning_24dp)
-                .show()
+            }
         }
 
         btnConfirmTripReserve.setOnClickListener {
             presenter?.reserveTrip(arguments?.getParcelable(Trip.TAG)!!)
             it.isEnabled = false
+            btnConfirmTripCancel.isEnabled = false
         }
 
         btnConfirmTripCancelReserve.setOnClickListener {
@@ -86,6 +100,8 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                 .setPositiveButton(android.R.string.ok){ _: DialogInterface, _: Int ->
                     presenter?.cancelReserve(arguments?.getParcelable(Trip.TAG)!!)
                     it.isEnabled = false
+                    btnConfirmTripCancel.isEnabled = false
+                    btnConfirmTripJoinChat.isEnabled = false
                 }
                 .setNegativeButton(android.R.string.no){ d: DialogInterface, _: Int ->
                     d.dismiss()
@@ -117,6 +133,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
 
     override fun updatedTrip(trip: Trip) {
         if (this.isVisible){
+            viaje = trip
             tvConfirmTripDate.text = trip.dateTrip.toFormatDate()
             tvConfirmTripCreator.text = trip.ownerName
             tvConfirmTripMate1Name.text = trip.traveler1Name ?: getString(R.string.plaza_libre)
@@ -141,7 +158,7 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
                 btnConfirmTripDelete.visibility = View.VISIBLE
                 btnConfirmTripReserve.visibility = View.GONE
                 btnConfirmTripJoinChat.visibility = View.VISIBLE
-                btnConfirmTripDelete.isEnabled = !(trip.traveler1 != null|| trip.traveler2 != null || trip.traveler3 != null)
+                //btnConfirmTripDelete.isEnabled = !(trip.traveler1 != null|| trip.traveler2 != null || trip.traveler3 != null)
             }else{
                 btnConfirmTripDelete.visibility = View.GONE
                 btnConfirmTripReserve.visibility = View.VISIBLE
@@ -182,13 +199,16 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
     }
 
     override fun onSuccessReserve() {
-        MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
-            .setTitle(getString(R.string.trip_reserved))
-            .setMessage(getString(R.string.mensaje_plaza_reservada))
-            .setPositiveButton(android.R.string.ok, null)
-            .show()
+        if (this.isVisible){
+            MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                .setTitle(getString(R.string.trip_reserved))
+                .setMessage(getString(R.string.mensaje_plaza_reservada))
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
 
-        btnConfirmTripReserve.isEnabled = true
+            btnConfirmTripReserve.isEnabled = true
+            btnConfirmTripCancel.isEnabled = true
+        }
     }
 
     override fun onErrorReserve() {
@@ -196,29 +216,36 @@ class ConfirmTripView : Fragment(), ConfirmTripContract.View{
     }
 
     override fun onTripCompleted() {
-        MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
-            .setTitle(getString(R.string.trip_completed))
-            .setMessage(getString(R.string.mensaje_plaza_completed))
-            .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
-                activity?.onDeletedTrip()
-                dialogInterface.dismiss()
-            }
-            .setIcon(R.drawable.ic_warning_24dp)
-            .show()
-        btnConfirmTripReserve.isEnabled = true
+        if(this.isVisible){
+            MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                .setTitle(getString(R.string.trip_completed))
+                .setMessage(getString(R.string.mensaje_plaza_completed))
+                .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
+                    activity?.onDeletedTrip()
+                    dialogInterface.dismiss()
+                }
+                .setIcon(R.drawable.ic_warning_24dp)
+                .show()
+            btnConfirmTripReserve.isEnabled = true
+            btnConfirmTripCancel.isEnabled = true
+        }
     }
 
     override fun onSuccessCancelReserve() {
-        MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
-            .setTitle(getString(R.string.trip_plaza_libre))
-            .setMessage(getString(R.string.mensaje_plaza_libre))
-            .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
-                activity?.onDeletedTrip()
-                dialogInterface.dismiss()
-            }
-            .setIcon(R.drawable.ic_warning_24dp)
-            .show()
-        btnConfirmTripCancelReserve.isEnabled = true
+        if (this.isVisible){
+            MaterialAlertDialogBuilder(context!!, R.style.AlertDialogTheme)
+                .setTitle(getString(R.string.trip_plaza_libre))
+                .setMessage(getString(R.string.mensaje_plaza_libre))
+                .setPositiveButton(android.R.string.ok){ dialogInterface: DialogInterface, _: Int ->
+                    activity?.onDeletedTrip()
+                    dialogInterface.dismiss()
+                }
+                .setIcon(R.drawable.ic_warning_24dp)
+                .show()
+            btnConfirmTripCancelReserve.isEnabled = true
+            btnConfirmTripCancel.isEnabled = true
+            btnConfirmTripJoinChat.isEnabled = true
+        }
     }
 
     override fun onErrorCancelReserve() {

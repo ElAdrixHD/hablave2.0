@@ -48,7 +48,7 @@ class MessageListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         val message = list[position]
-        return if (message.user == HablaveApplication.context.user?.nameAndSurname){
+        return if (message.userId == HablaveApplication.context.user?.uid || message.user == HablaveApplication.context.user?.nameAndSurname ){
             VIEW_TYPE_MESSAGE_SENT
         }else{
             VIEW_TYPE_MESSAGE_RECEIVED

@@ -95,4 +95,6 @@
     <string name="no_ticket">El dueño de este viaje NO tiene el billete comprado</string>
     <string name="default_notification_channel_id">10015</string>
     <string name="hablave">Hablave</string>
+    <string name="error_borrar_viaje">Error al borrar</string>
+    <string name="borrar_viaje_mensaje">No puedes borrar un viaje si hay acompañantes registrados en el viaje. Contacte con ellos para poder eliminar este viaje.</string>
 </resources>

@@ -27,13 +27,19 @@ class ProfileHistoryView : Fragment() , ChatListAdapter.CharListInterface, Profi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        adapter?.clear()
+        presenter?.loadTrips()
     }
 
     override fun onStart() {
         super.onStart()
-        adapter?.clear()
-        ivProfileHistoryNoData.visibility = View.VISIBLE
-        presenter?.loadTrips()
+        if (this.isVisible){
+            if (adapter?.itemCount == 0){
+                ivProfileHistoryNoData.visibility = View.VISIBLE
+            }else{
+                ivProfileHistoryNoData.visibility = View.GONE
+            }
+        }
     }
 
     override fun onAttach(context: Context) {

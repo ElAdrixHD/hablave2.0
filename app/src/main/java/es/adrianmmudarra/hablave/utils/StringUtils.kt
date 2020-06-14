@@ -33,3 +33,7 @@ fun String.dateToLong(): Long{
     val date = sdf.parse(this)
     return date.time
 }
+
+fun String.dateToDate(): Date{
+    return sdf.parse(this)
+}

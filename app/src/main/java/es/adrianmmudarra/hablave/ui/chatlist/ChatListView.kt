@@ -24,6 +24,8 @@ class ChatListView : Fragment(), ChatListAdapter.CharListInterface, ChatListCont
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        adapter.clear()
+        presenter?.loadChats()
     }
 
     override fun onResume() {
@@ -33,9 +35,12 @@ class ChatListView : Fragment(), ChatListAdapter.CharListInterface, ChatListCont
 
     override fun onStart() {
         super.onStart()
-        adapter.clear()
-        ivNoDataChatList.visibility = View.VISIBLE
-        presenter?.loadChats()
+        if (this.isVisible){
+            if(adapter.itemCount == 0)
+                ivNoDataChatList.visibility = View.VISIBLE
+            else
+                ivNoDataChatList.visibility = View.GONE
+        }
     }
 
     override fun onAttach(context: Context) {

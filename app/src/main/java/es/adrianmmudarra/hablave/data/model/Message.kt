@@ -5,4 +5,5 @@ class Message() {
     var user: String = ""
     var createdAt: Long = 0
     var idTrip: String = ""
+    var userId: String = ""
 }
