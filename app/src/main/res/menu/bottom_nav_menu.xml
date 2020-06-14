@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/nav_trip"
-        android:icon="@drawable/ic_train_24dp"
+        android:icon="@drawable/ic_baseline_home"
         android:title="@string/Principal" />
     <item
         android:id="@+id/nav_search"
@@ -15,7 +15,7 @@
         android:title="@string/create" />
     <item
         android:id="@+id/nav_chat"
-        android:icon="@drawable/ic_chat_24dp"
+        android:icon="@drawable/ic_train_24dp"
         android:title="@string/mis_viajes" />
     <item
         android:id="@+id/nav_profile"
