@@ -131,7 +131,9 @@ class FirebaseDatabaseTripRepository {
         uid: String,
         chatListPresenter: OnChatListInteract
     ) {
-        database.collection("Trip").whereEqualTo("owner", uid).whereGreaterThanOrEqualTo("dateTrip", Calendar.getInstance().time.toFormatDate()).get().addOnSuccessListener { documents->
+        database.collection("Trip")
+            .whereEqualTo("owner", uid)
+            .whereGreaterThanOrEqualTo("dateTrip", Calendar.getInstance().time.toFormatDate()).get().addOnSuccessListener { documents->
             for (document in documents){
                 chatListPresenter.onSuccessAdd(document.toObject(Trip::class.java))
             }

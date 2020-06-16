@@ -143,7 +143,7 @@ class SearchTripView : Fragment(), SearchTripContract.View {
             tiledSearchTripDate.setText("$myYear-${String.format("%02d",monthOfYear+1)}-${String.format("%02d",dayOfMonth)}")
 
         }, year, month, day)
-        dpd.datePicker.minDate = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH,1) }.timeInMillis
+        dpd.datePicker.minDate = Calendar.getInstance().timeInMillis
         dpd.show()
     }
 
